@@ -9,8 +9,9 @@ import CommunitiesPage from '@/pages/CommunitiesPage';
 import ForumPage from '@/pages/ForumPage';
 import ProfilePage from '@/pages/ProfilePage';
 import SearchPage from '@/pages/SearchPage';
+import TournamentsPage from '@/pages/TournamentsPage';
 
-type Page = 'home' | 'news' | 'communities' | 'forum' | 'profile' | 'search';
+type Page = 'home' | 'news' | 'tournaments' | 'communities' | 'forum' | 'profile' | 'search';
 
 export default function App() {
   const [currentPage, setCurrentPage] = useState<Page>('home');
@@ -19,6 +20,7 @@ export default function App() {
     switch (currentPage) {
       case 'home': return <HomePage onPageChange={(p) => setCurrentPage(p as Page)} />;
       case 'news': return <NewsPage />;
+      case 'tournaments': return <TournamentsPage />;
       case 'communities': return <CommunitiesPage />;
       case 'forum': return <ForumPage />;
       case 'profile': return <ProfilePage />;

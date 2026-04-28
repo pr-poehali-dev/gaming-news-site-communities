@@ -9,6 +9,7 @@ interface NavbarProps {
 const navItems = [
   { id: 'home', label: 'Главная', icon: 'Home' },
   { id: 'news', label: 'Новости', icon: 'Newspaper' },
+  { id: 'tournaments', label: 'Турниры', icon: 'Trophy' },
   { id: 'communities', label: 'Сообщества', icon: 'Users' },
   { id: 'forum', label: 'Форум', icon: 'MessageSquare' },
   { id: 'profile', label: 'Профиль', icon: 'User' },
