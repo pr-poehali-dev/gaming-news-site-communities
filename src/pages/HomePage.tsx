@@ -41,7 +41,7 @@ export default function HomePage({ onPageChange }: HomePageProps) {
       <div style={{ background: 'var(--bg-card)', borderBottom: '1px solid var(--border-color)', marginTop: '56px', overflow: 'hidden' }}>
         <div className="py-1.5 flex" style={{ animation: 'ticker 36s linear infinite', whiteSpace: 'nowrap' }}>
           {[1, 2].map(i => (
-            <span key={i} className="px-8" style={{ fontFamily: 'Orbitron', fontSize: '12px', letterSpacing: '2px', color: 'var(--text-secondary)' }}>
+            <span key={i} className="px-8" style={{ fontFamily: 'Orbitron', fontSize: '9px', letterSpacing: '2px', color: 'var(--text-dim)' }}>
               NEXUS CUP 2026 — РЕГИСТРАЦИЯ ОТКРЫТА &nbsp;·&nbsp; ОБНОВЛЕНИЕ 3.7 ДОСТУПНО &nbsp;·&nbsp; ТОП-100 ОБНОВЛЁН &nbsp;·&nbsp; RIOT GAMES ПАРТНЁР ПЛАТФОРМЫ &nbsp;·&nbsp; 47 892 ОНЛАЙН &nbsp;·&nbsp;
             </span>
           ))}

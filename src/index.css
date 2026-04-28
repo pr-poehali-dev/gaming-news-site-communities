@@ -135,9 +135,9 @@
 .nav-link {
   color: var(--text-secondary);
   font-family: "Orbitron", monospace;
-  font-size: 10px;
+  font-size: 13px;
   font-weight: 600;
-  letter-spacing: 2px;
+  letter-spacing: 1px;
   text-transform: uppercase;
   padding: 6px 0;
   border-bottom: 2px solid transparent;
