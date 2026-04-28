@@ -4,24 +4,26 @@ import Icon from '@/components/ui/icon';
 type Tab = 'news' | 'games' | 'users';
 
 const allNews = [
-  { title: 'NEXUS CUP 2026 — регистрация открыта', category: 'Турниры', time: '2 ч. назад' },
-  { title: 'Cyber Protocol 3.7: новые карты и режим «Хаос»', category: 'Обновления', time: '5 ч. назад' },
-  { title: 'Рейтинг лучших геймеров России — апрель 2026', category: 'Рейтинги', time: '1 д. назад' },
+  { title: 'The International 2025 по Dota 2 — призовой фонд $40 000 000', category: 'Турниры', time: '2 ч. назад' },
+  { title: 'CS2: патч от 15 апреля — возврат de_inferno, нерф AWP', category: 'Обновления', time: '4 ч. назад' },
+  { title: 'NAVI vs Team Spirit: финал PGL Major Copenhagen', category: 'Киберспорт', time: '8 ч. назад' },
+  { title: 'Valorant Champions 2025 — расписание и составы', category: 'Киберспорт', time: '1 д. назад' },
 ];
 
 const allGames = [
-  { name: 'CYBER PROTOCOL', genre: 'Battle Royale', players: '2.4M', rating: 9.2 },
-  { name: 'VOID RUNNERS', genre: 'MOBA', players: '1.8M', rating: 8.7 },
-  { name: 'IRON CITADEL', genre: 'RTS', players: '980K', rating: 8.1 },
-  { name: 'NEON DRIFT', genre: 'Racing', players: '740K', rating: 7.9 },
-  { name: 'SHADOW REALM', genre: 'RPG', players: '620K', rating: 8.5 },
+  { name: 'DOTA 2', genre: 'MOBA', players: '8.2M', rating: 9.4 },
+  { name: 'COUNTER-STRIKE 2', genre: 'Шутер', players: '6.4M', rating: 9.1 },
+  { name: 'VALORANT', genre: 'Шутер', players: '4.1M', rating: 8.7 },
+  { name: 'LEAGUE OF LEGENDS', genre: 'MOBA', players: '3.8M', rating: 8.5 },
+  { name: 'PUBG', genre: 'Battle Royale', players: '2.1M', rating: 7.9 },
+  { name: 'MINECRAFT', genre: 'Сандбокс', players: '5.3M', rating: 9.6 },
 ];
 
 const allUsers = [
-  { name: 'ProGamer_RU', rank: 'DIAMOND III', game: 'Cyber Protocol', online: true },
-  { name: 'NightWolf_K', rank: 'LEGEND', game: 'Void Runners', online: true },
-  { name: 'StrikerPRO', rank: 'PLATINUM I', game: 'Neon Drift', online: false },
-  { name: 'ShadowFox_M', rank: 'GOLD II', game: 'Shadow Realm', online: true },
+  { name: 's1mple_fan_RU', rank: 'FACEIT 10', game: 'Counter-Strike 2', online: true },
+  { name: 'Dota2_Divine', rank: 'Divine 5', game: 'Dota 2', online: true },
+  { name: 'ValorantRadiant', rank: 'Radiant', game: 'Valorant', online: false },
+  { name: 'LoL_Challenger', rank: 'Challenger', game: 'League of Legends', online: true },
 ];
 
 export default function SearchPage({ query }: { query?: string }) {

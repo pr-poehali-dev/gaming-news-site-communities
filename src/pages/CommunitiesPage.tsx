@@ -4,15 +4,15 @@ import Icon from '@/components/ui/icon';
 type JoinState = Record<number, boolean>;
 
 const communities = [
-  { id: 1, name: 'CYBER PROTOCOL OFFICIAL', game: 'Cyber Protocol', members: '84K', online: 2341, category: 'Battle Royale' },
-  { id: 2, name: 'VOID RUNNERS SQUAD', game: 'Void Runners', members: '52K', online: 1820, category: 'MOBA' },
-  { id: 3, name: 'RU GAMERS COMMUNITY', game: 'Мультиигровое', members: '210K', online: 5420, category: 'Общее' },
-  { id: 4, name: 'IRON CITADEL GUILD', game: 'Iron Citadel', members: '31K', online: 876, category: 'RTS' },
-  { id: 5, name: 'NEON DRIFT RACERS', game: 'Neon Drift', members: '18K', online: 640, category: 'Racing' },
-  { id: 6, name: 'SHADOW REALM GUILD', game: 'Shadow Realm', members: '43K', online: 1100, category: 'RPG' },
+  { id: 1, name: 'DOTA 2 RUSSIA', game: 'Dota 2', members: '214K', online: 8420, category: 'MOBA' },
+  { id: 2, name: 'CS2 PRO SCENE RU', game: 'Counter-Strike 2', members: '178K', online: 6310, category: 'Шутер' },
+  { id: 3, name: 'VALORANT CIS', game: 'Valorant', members: '95K', online: 3140, category: 'Шутер' },
+  { id: 4, name: 'LoL РУССКОЕ СООБЩЕСТВО', game: 'League of Legends', members: '132K', online: 4280, category: 'MOBA' },
+  { id: 5, name: 'PUBG CLAN RU', game: 'PUBG', members: '61K', online: 1870, category: 'Battle Royale' },
+  { id: 6, name: 'MINECRAFT BUILDERS RU', game: 'Minecraft', members: '88K', online: 2950, category: 'Сандбокс' },
 ];
 
-const categories = ['Все', 'Battle Royale', 'MOBA', 'RPG', 'RTS', 'Racing', 'Общее'];
+const categories = ['Все', 'MOBA', 'Шутер', 'Battle Royale', 'RPG', 'Сандбокс', 'Общее'];
 
 export default function CommunitiesPage() {
   const [search, setSearch] = useState('');

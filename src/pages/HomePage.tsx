@@ -5,17 +5,17 @@ const HERO_IMAGE = 'https://cdn.poehali.dev/projects/f1898adf-e8ce-426f-9d76-5d4
 const COMMUNITY_IMAGE = 'https://cdn.poehali.dev/projects/f1898adf-e8ce-426f-9d76-5d40fb291118/files/8424f76e-cd0a-497c-b732-9a833c009838.jpg';
 
 const topGames = [
-  { rank: 1, name: 'CYBER PROTOCOL', genre: 'Battle Royale', players: '2.4M', change: '+12%', up: true },
-  { rank: 2, name: 'VOID RUNNERS', genre: 'MOBA', players: '1.8M', change: '+8%', up: true },
-  { rank: 3, name: 'IRON CITADEL', genre: 'RTS', players: '980K', change: '−3%', up: false },
-  { rank: 4, name: 'NEON DRIFT', genre: 'Racing', players: '740K', change: '+22%', up: true },
-  { rank: 5, name: 'SHADOW REALM', genre: 'RPG', players: '620K', change: '+5%', up: true },
+  { rank: 1, name: 'DOTA 2', genre: 'MOBA', players: '8.2M', change: '+5%', up: true },
+  { rank: 2, name: 'CS2', genre: 'Шутер', players: '6.4M', change: '+3%', up: true },
+  { rank: 3, name: 'VALORANT', genre: 'Шутер', players: '4.1M', change: '−2%', up: false },
+  { rank: 4, name: 'LEAGUE OF LEGENDS', genre: 'MOBA', players: '3.8M', change: '+1%', up: true },
+  { rank: 5, name: 'PUBG', genre: 'Battle Royale', players: '2.1M', change: '+8%', up: true },
 ];
 
 const latestNews = [
-  { id: 1, title: 'Киберспортивный турнир NEXUS CUP 2026 — призовой фонд $1 000 000', category: 'ТУРНИРЫ', time: '2 ч. назад', views: '12.4K' },
-  { id: 2, title: 'Обновление 3.7: новые игровые режимы и карты в Cyber Protocol', category: 'ОБНОВЛЕНИЯ', time: '5 ч. назад', views: '8.1K' },
-  { id: 3, title: 'Рейтинг лучших геймеров России — апрель 2026', category: 'РЕЙТИНГИ', time: '1 д. назад', views: '34.5K' },
+  { id: 1, title: 'The International 2025 по Dota 2 — призовой фонд превысил $40 000 000', category: 'ТУРНИРЫ', time: '2 ч. назад', views: '84.2K' },
+  { id: 2, title: 'CS2 патч: переработан de_dust2, новая система рейтинга Premier', category: 'ОБНОВЛЕНИЯ', time: '5 ч. назад', views: '31.7K' },
+  { id: 3, title: 'NAVI и Team Spirit вышли в финал PGL Major Copenhagen 2025', category: 'КИБЕРСПОРТ', time: '1 д. назад', views: '54.5K' },
 ];
 
 const platformStats = [
@@ -42,7 +42,7 @@ export default function HomePage({ onPageChange }: HomePageProps) {
         <div className="py-1.5 flex" style={{ animation: 'ticker 36s linear infinite', whiteSpace: 'nowrap' }}>
           {[1, 2].map(i => (
             <span key={i} className="px-8" style={{ fontFamily: 'Orbitron', fontSize: '9px', letterSpacing: '2px', color: 'var(--text-dim)' }}>
-              NEXUS CUP 2026 — РЕГИСТРАЦИЯ ОТКРЫТА &nbsp;·&nbsp; ОБНОВЛЕНИЕ 3.7 ДОСТУПНО &nbsp;·&nbsp; ТОП-100 ОБНОВЛЁН &nbsp;·&nbsp; RIOT GAMES ПАРТНЁР ПЛАТФОРМЫ &nbsp;·&nbsp; 47 892 ОНЛАЙН &nbsp;·&nbsp;
+              THE INTERNATIONAL 2025 — DOTA 2 &nbsp;·&nbsp; PGL MAJOR CS2 — NAVI VS TEAM SPIRIT &nbsp;·&nbsp; VALORANT MASTERS TOKYO 2025 &nbsp;·&nbsp; LoL WORLDS 2025 — РЕГИСТРАЦИЯ &nbsp;·&nbsp; 47 892 ОНЛАЙН &nbsp;·&nbsp;
             </span>
           ))}
         </div>

@@ -11,16 +11,16 @@ const achievements = [
 ];
 
 const activity = [
-  { action: 'Написал пост в форуме', detail: 'Новая мета после патча 3.7', time: '1 ч. назад', icon: 'MessageSquare' },
-  { action: 'Вступил в сообщество', detail: 'RU GAMERS COMMUNITY', time: '3 ч. назад', icon: 'Users' },
-  { action: 'Прокомментировал новость', detail: 'NEXUS CUP 2026', time: '5 ч. назад', icon: 'Newspaper' },
-  { action: 'Достижение разблокировано', detail: 'Легенда Сезона', time: '1 д. назад', icon: 'Trophy' },
+  { action: 'Написал пост в форуме', detail: 'Мета Dota 2 патч 7.37 — кого пикать', time: '1 ч. назад', icon: 'MessageSquare' },
+  { action: 'Вступил в сообщество', detail: 'CS2 PRO SCENE RU', time: '3 ч. назад', icon: 'Users' },
+  { action: 'Прокомментировал новость', detail: 'NAVI vs Team Spirit — финал Major', time: '5 ч. назад', icon: 'Newspaper' },
+  { action: 'Достижение разблокировано', detail: 'Faceit Level 10', time: '1 д. назад', icon: 'Trophy' },
 ];
 
 const profileStats = [
-  { label: 'Ранг', value: 'DIAMOND III' },
+  { label: 'Ранг', value: 'FACEIT 8' },
   { label: 'Побед', value: '1 247' },
-  { label: 'K/D', value: '3.42' },
+  { label: 'K/D', value: '1.38' },
   { label: 'Часов', value: '2 180' },
 ];
 
@@ -108,9 +108,9 @@ export default function ProfilePage() {
             <div className="g-card p-5">
               <div style={{ fontFamily: 'Orbitron', fontSize: '9px', letterSpacing: '2px', color: 'var(--text-dim)', marginBottom: '14px' }}>МОИ ИГРЫ</div>
               {[
-                { game: 'Cyber Protocol', hours: '1 240ч', rank: 'DIAMOND III' },
-                { game: 'Void Runners', hours: '520ч', rank: 'PLATINUM II' },
-                { game: 'Shadow Realm', hours: '420ч', rank: 'GOLD I' },
+                { game: 'Counter-Strike 2', hours: '1 240ч', rank: 'FACEIT 8' },
+                { game: 'Dota 2', hours: '520ч', rank: 'Divine 2' },
+                { game: 'Valorant', hours: '280ч', rank: 'Platinum 1' },
               ].map((g, i) => (
                 <div key={i} className="flex items-center justify-between py-3" style={{ borderBottom: i < 2 ? '1px solid var(--border-color)' : 'none' }}>
                   <div>

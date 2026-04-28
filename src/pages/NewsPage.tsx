@@ -4,14 +4,14 @@ import Icon from '@/components/ui/icon';
 const categories = ['Все', 'Турниры', 'Обновления', 'Инди', 'Железо', 'Рейтинги', 'Киберспорт'];
 
 const news = [
-  { id: 1, title: 'NEXUS CUP 2026 — регистрация открыта, призовой фонд $1 000 000', category: 'Турниры', time: '2 ч. назад', views: '12.4K', comments: 234 },
-  { id: 2, title: 'Cyber Protocol 3.7: новые карты, режим «Хаос» и переработанный баланс', category: 'Обновления', time: '5 ч. назад', views: '8.1K', comments: 87 },
-  { id: 3, title: 'Рейтинг лучших геймеров России — апрель 2026, топ-100', category: 'Рейтинги', time: '1 д. назад', views: '34.5K', comments: 512 },
-  { id: 4, title: 'NVIDIA RTX 5090 тест в 10 играх: реальные цифры производительности', category: 'Железо', time: '1 д. назад', views: '19.2K', comments: 341 },
-  { id: 5, title: 'Инди-хит года: «Звёздный Вор» собрал 500K игроков за неделю', category: 'Инди', time: '2 д. назад', views: '7.3K', comments: 156 },
-  { id: 6, title: 'ESL Pro League Season 22 — расписание матчей и составы команд', category: 'Киберспорт', time: '2 д. назад', views: '22.1K', comments: 98 },
-  { id: 7, title: 'Steam Summer Sale 2026: игры со скидками до 90%', category: 'Обновления', time: '3 д. назад', views: '56.7K', comments: 1024 },
-  { id: 8, title: 'Team Spirit выиграли Major с результатом 3:0 в финале', category: 'Киберспорт', time: '3 д. назад', views: '41.3K', comments: 783 },
+  { id: 1, title: 'The International 2025 по Dota 2 — призовой фонд превысил $40 000 000', category: 'Турниры', time: '2 ч. назад', views: '84.2K', comments: 1342 },
+  { id: 2, title: 'CS2: патч от 15 апреля — возврат de_inferno, нерф AWP, фикс лагов на серверах', category: 'Обновления', time: '4 ч. назад', views: '31.7K', comments: 876 },
+  { id: 3, title: 'NAVI vs Team Spirit: финал PGL Major Copenhagen — разбор по картам', category: 'Киберспорт', time: '8 ч. назад', views: '54.5K', comments: 2104 },
+  { id: 4, title: 'NVIDIA RTX 5090: тест в Dota 2, CS2, Valorant и Cyberpunk 2077', category: 'Железо', time: '1 д. назад', views: '29.3K', comments: 541 },
+  { id: 5, title: 'Hollow Knight: Silksong — дата выхода подтверждена, первый геймплей', category: 'Инди', time: '1 д. назад', views: '18.6K', comments: 934 },
+  { id: 6, title: 'Valorant Champions 2025 — расписание, составы команд и прогнозы', category: 'Киберспорт', time: '2 д. назад', views: '22.1K', comments: 398 },
+  { id: 7, title: 'Steam Sale 2025: скидки до 90% на GTA V, Elden Ring, Red Dead Redemption 2', category: 'Обновления', time: '2 д. назад', views: '76.4K', comments: 2891 },
+  { id: 8, title: 'League of Legends Worlds 2025 — Group Stage: T1 и G2 лидируют в группах', category: 'Киберспорт', time: '3 д. назад', views: '41.3K', comments: 1203 },
 ];
 
 export default function NewsPage() {

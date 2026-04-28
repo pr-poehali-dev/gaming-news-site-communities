@@ -11,12 +11,13 @@ const forumCategories = [
 ];
 
 const topics = [
-  { id: 1, title: 'МЕГА-ГАЙД: Как выйти на PRO уровень в Cyber Protocol за 30 дней', category: 'Гайды', author: 'ProGamer_RU', time: '1 ч. назад', replies: 234, views: '45K', pinned: true },
-  { id: 2, title: 'Нашёл баг — телепорт через стену на карте "Нова-Сити", репро 100%', category: 'Баги', author: 'BugHunter404', time: '2 ч. назад', replies: 89, views: '12K', pinned: false },
-  { id: 3, title: 'Продам аккаунт LEGEND ранг, 2000+ часов, все скины', category: 'Маркет', author: 'SellerPro', time: '3 ч. назад', replies: 15, views: '3.4K', pinned: false },
-  { id: 4, title: 'Ищу 5-ку для ранга — Diamond+, микрофон, 18+', category: 'Общее', author: 'TeamFinder_X', time: '4 ч. назад', replies: 67, views: '8.1K', pinned: false },
-  { id: 5, title: 'Обсуждение новой меты после патча 3.7 — нерф Берсерка убил класс?', category: 'Общее', author: 'MetaAnalyst', time: '6 ч. назад', replies: 412, views: '28K', pinned: false },
-  { id: 6, title: '[ОФИЦИАЛЬНО] Регламент NEXUS CUP 2026 — читай перед регистрацией', category: 'Турниры', author: 'NEXUS_ADMIN', time: '1 д. назад', replies: 156, views: '67K', pinned: true },
+  { id: 1, title: 'ГАЙД: Как выйти на Divine в Dota 2 за 1 сезон — детальный разбор', category: 'Гайды', author: 's1mple_fan_RU', time: '1 ч. назад', replies: 412, views: '78K', pinned: true },
+  { id: 2, title: 'CS2: топ-10 настроек мыши и crosshair от профи игроков (NaVi, Vitality)', category: 'Гайды', author: 'cs_pro_tips', time: '2 ч. назад', replies: 234, views: '45K', pinned: false },
+  { id: 3, title: 'Нашёл читера на Faceit — как правильно репортить и не получить бан самому', category: 'Баги', author: 'BugHunter404', time: '3 ч. назад', replies: 89, views: '14K', pinned: false },
+  { id: 4, title: 'Продам аккаунт Valorant: Radiant ранг, 1800+ часов, редкие скины', category: 'Маркет', author: 'SellerPro', time: '4 ч. назад', replies: 21, views: '5.1K', pinned: false },
+  { id: 5, title: 'Ищу стак для FACEIT Level 8+ в CS2 — микрофон обязателен, 18+', category: 'Общее', author: 'TeamFinder_X', time: '5 ч. назад', replies: 67, views: '9.3K', pinned: false },
+  { id: 6, title: 'Мета Dota 2 патч 7.37: какие герои имба, кого пикать в пабе', category: 'Общее', author: 'MetaAnalyst', time: '7 ч. назад', replies: 534, views: '62K', pinned: false },
+  { id: 7, title: '[ОФИЦИАЛЬНО] The International 2025 — правила, расписание, как смотреть', category: 'Турниры', author: 'NEXUS_ADMIN', time: '1 д. назад', replies: 891, views: '134K', pinned: true },
 ];
 
 type Tab = 'topics' | 'categories';
