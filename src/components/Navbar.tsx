@@ -15,111 +15,87 @@ const navItems = [
 ];
 
 export default function Navbar({ currentPage, onPageChange }: NavbarProps) {
-  const [searchQuery, setSearchQuery] = useState('');
-  const [searchFocused, setSearchFocused] = useState(false);
+  const [search, setSearch] = useState('');
   const [mobileOpen, setMobileOpen] = useState(false);
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50" style={{ background: 'rgba(5, 10, 14, 0.95)', backdropFilter: 'blur(20px)', borderBottom: '1px solid #1a3a4a' }}>
-      {/* Top bar */}
-      <div className="flex items-center justify-between px-6 py-3">
+    <nav className="fixed top-0 left-0 right-0 z-50" style={{ background: 'rgba(20,20,20,0.97)', backdropFilter: 'blur(12px)', borderBottom: '1px solid var(--border-color)' }}>
+      <div className="flex items-center justify-between px-6 md:px-10 h-14">
+
         {/* Logo */}
-        <button
-          onClick={() => onPageChange('home')}
-          className="flex items-center gap-3 group"
-        >
-          <div className="relative w-8 h-8 flex items-center justify-center" style={{ border: '1px solid var(--neon-green)', clipPath: 'polygon(50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%, 0 25%)' }}>
-            <div className="w-3 h-3 rounded-sm" style={{ background: 'var(--neon-green)', boxShadow: '0 0 10px var(--neon-green)' }}></div>
+        <button onClick={() => onPageChange('home')} className="flex items-center gap-3">
+          <div className="w-6 h-6 flex items-center justify-center" style={{ background: 'var(--red)' }}>
+            <Icon name="Gamepad2" size={13} style={{ color: '#fff' }} />
           </div>
-          <span className="font-display text-xl font-black tracking-widest" style={{ color: 'var(--neon-green)', textShadow: '0 0 15px var(--neon-green)' }}>
+          <span className="font-display text-sm font-black" style={{ color: 'var(--text-primary)', letterSpacing: '4px' }}>
             NEXUS
           </span>
-          <span className="font-mono text-xs hidden sm:block" style={{ color: 'var(--neon-cyan)', opacity: 0.7 }}>v2.0.7</span>
         </button>
 
-        {/* Center nav - Desktop */}
-        <div className="hidden md:flex items-center gap-1">
+        {/* Nav links — desktop */}
+        <div className="hidden md:flex items-center gap-7">
           {navItems.map(item => (
             <button
               key={item.id}
               onClick={() => onPageChange(item.id)}
-              className={`flex items-center gap-2 px-4 py-2 font-body font-semibold text-sm tracking-wider uppercase transition-all duration-200 ${
-                currentPage === item.id
-                  ? 'nav-active'
-                  : 'text-gray-400 hover:text-white'
-              }`}
-              style={{
-                borderBottom: currentPage === item.id ? '2px solid var(--neon-green)' : '2px solid transparent',
-                color: currentPage === item.id ? 'var(--neon-green)' : undefined,
-              }}
+              className={`nav-link ${currentPage === item.id ? 'active' : ''}`}
             >
-              <Icon name={item.icon} size={14} />
               {item.label}
             </button>
           ))}
         </div>
 
-        {/* Right: Search + User */}
+        {/* Right */}
         <div className="flex items-center gap-3">
-          {/* Search */}
-          <div className={`relative transition-all duration-300 ${searchFocused ? 'w-64' : 'w-40'} hidden sm:block`}>
-            <Icon name="Search" size={14} className="absolute left-3 top-1/2 -translate-y-1/2 z-10" style={{ color: 'var(--neon-green)' }} />
+          <div className="relative hidden sm:block">
+            <Icon name="Search" size={13} className="absolute left-3 top-1/2 -translate-y-1/2" style={{ color: 'var(--text-dim)' }} />
             <input
               type="text"
-              value={searchQuery}
-              onChange={e => setSearchQuery(e.target.value)}
-              onFocus={() => setSearchFocused(true)}
-              onBlur={() => setSearchFocused(false)}
+              value={search}
+              onChange={e => setSearch(e.target.value)}
               placeholder="Поиск..."
-              className="cyber-input w-full pl-9 pr-4 py-2 text-sm rounded-none"
-              style={{ fontSize: '13px' }}
+              className="g-input pl-8 pr-3 py-1.5 text-sm w-36 focus:w-48 transition-all duration-300"
             />
           </div>
 
-          {/* Online status */}
-          <div className="hidden sm:flex items-center gap-2 px-3 py-1" style={{ border: '1px solid var(--dark-border)' }}>
-            <div className="online-dot"></div>
-            <span className="font-mono text-xs" style={{ color: 'var(--neon-green)' }}>47,892 онлайн</span>
+          <div className="hidden md:flex items-center gap-2">
+            <div className="dot-red"></div>
+            <span style={{ color: 'var(--text-dim)', fontSize: '10px', fontFamily: 'Orbitron', letterSpacing: '1px' }}>47 892</span>
           </div>
 
-          {/* Profile avatar */}
           <button
             onClick={() => onPageChange('profile')}
-            className="relative w-9 h-9 flex items-center justify-center transition-all duration-200 hover:scale-105"
-            style={{ border: '1px solid var(--neon-purple)', background: 'rgba(157, 0, 255, 0.1)' }}
+            className="w-8 h-8 flex items-center justify-center transition-opacity hover:opacity-70"
+            style={{ border: '1px solid var(--border-color)', background: 'var(--bg-card)' }}
           >
-            <Icon name="User" size={16} style={{ color: 'var(--neon-purple)' }} />
-            <div className="absolute -top-1 -right-1 w-3 h-3 rounded-full flex items-center justify-center text-xs" style={{ background: 'var(--neon-green)', fontSize: '7px', color: '#000', fontWeight: 'bold' }}>5</div>
+            <Icon name="User" size={14} style={{ color: 'var(--text-secondary)' }} />
           </button>
 
-          {/* Mobile menu */}
-          <button className="md:hidden" onClick={() => setMobileOpen(!mobileOpen)} style={{ color: 'var(--neon-green)' }}>
-            <Icon name={mobileOpen ? 'X' : 'Menu'} size={22} />
+          <button className="md:hidden" onClick={() => setMobileOpen(!mobileOpen)} style={{ color: 'var(--text-secondary)' }}>
+            <Icon name={mobileOpen ? 'X' : 'Menu'} size={20} />
           </button>
         </div>
       </div>
 
       {/* Mobile menu */}
       {mobileOpen && (
-        <div className="md:hidden px-4 pb-4" style={{ borderTop: '1px solid var(--dark-border)' }}>
+        <div className="md:hidden px-6 pb-4" style={{ borderTop: '1px solid var(--border-color)' }}>
           {navItems.map(item => (
             <button
               key={item.id}
               onClick={() => { onPageChange(item.id); setMobileOpen(false); }}
-              className="flex items-center gap-3 w-full py-3 font-body font-semibold text-sm tracking-wider uppercase"
-              style={{ color: currentPage === item.id ? 'var(--neon-green)' : '#aaa', borderBottom: '1px solid var(--dark-border)' }}
+              className="flex items-center gap-3 w-full py-3"
+              style={{
+                color: currentPage === item.id ? 'var(--red)' : 'var(--text-secondary)',
+                borderBottom: '1px solid var(--border-color)',
+                fontFamily: 'Orbitron', fontSize: '10px', letterSpacing: '2px', textTransform: 'uppercase'
+              }}
             >
-              <Icon name={item.icon} size={16} />
+              <Icon name={item.icon} size={14} />
               {item.label}
             </button>
           ))}
-          <div className="mt-3">
-            <input
-              type="text"
-              placeholder="Поиск по новостям, играм, пользователям..."
-              className="cyber-input w-full px-4 py-2 text-sm rounded-none"
-            />
-          </div>
+          <input type="text" placeholder="Поиск..." className="g-input w-full px-3 py-2 mt-3 text-sm" />
         </div>
       )}
     </nav>

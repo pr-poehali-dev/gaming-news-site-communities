@@ -68,16 +68,11 @@ export default {
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
 				},
-				neon: {
-					green: '#00ff88',
-					cyan: '#00f5ff',
-					purple: '#9d00ff',
-					pink: '#ff0080',
-				},
 				game: {
-					bg: '#050a0e',
-					card: '#0a1520',
-					border: '#1a3a4a',
+					red: '#e02020',
+					bg: '#141414',
+					card: '#1c1c1c',
+					border: '#282828',
 				}
 			},
 			borderRadius: {

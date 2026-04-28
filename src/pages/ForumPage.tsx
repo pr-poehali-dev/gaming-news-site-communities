@@ -2,179 +2,152 @@ import { useState } from 'react';
 import Icon from '@/components/ui/icon';
 
 const forumCategories = [
-  { id: 'general', name: 'Общее', icon: '💬', topics: 12400, color: 'var(--neon-green)' },
-  { id: 'tournaments', name: 'Турниры', icon: '🏆', topics: 3200, color: 'var(--neon-pink)' },
-  { id: 'guides', name: 'Гайды', icon: '📖', topics: 8900, color: 'var(--neon-cyan)' },
-  { id: 'marketplace', name: 'Маркетплейс', icon: '💎', topics: 2100, color: '#ff9900' },
-  { id: 'bugs', name: 'Баги & Поддержка', icon: '🐛', topics: 1800, color: 'var(--neon-purple)' },
-  { id: 'offtopic', name: 'Оффтопик', icon: '🎲', topics: 5400, color: '#7a9db5' },
+  { id: 'general', name: 'Общее', topics: 12400, last: '1 мин назад' },
+  { id: 'tournaments', name: 'Турниры', topics: 3200, last: '5 мин назад' },
+  { id: 'guides', name: 'Гайды', topics: 8900, last: '12 мин назад' },
+  { id: 'marketplace', name: 'Маркетплейс', topics: 2100, last: '30 мин назад' },
+  { id: 'bugs', name: 'Баги и поддержка', topics: 1800, last: '2 ч назад' },
+  { id: 'offtopic', name: 'Оффтопик', topics: 5400, last: '8 мин назад' },
 ];
 
-const hotTopics = [
-  { id: 1, title: 'МЕГА-ГАЙД: Как выйти на PRO уровень в Cyber Protocol за 30 дней', category: 'Гайды', author: 'ProGamer_RU', time: '1 час назад', replies: 234, views: '45K', pinned: true, hot: true },
-  { id: 2, title: 'Нашёл баг — телепорт через стену на карте "Нова-Сити", репро 100%', category: 'Баги & Поддержка', author: 'BugHunter404', time: '2 часа назад', replies: 89, views: '12K', pinned: false, hot: true },
-  { id: 3, title: 'Продам аккаунт LEGEND ранг, 2000+ часов, все скины', category: 'Маркетплейс', author: 'SellerPro', time: '3 часа назад', replies: 15, views: '3.4K', pinned: false, hot: false },
-  { id: 4, title: 'Ищу 5-ку для ранга, требования: Diamond+, микрофон, 18+', category: 'Общее', author: 'TeamFinder_X', time: '4 часа назад', replies: 67, views: '8.1K', pinned: false, hot: false },
-  { id: 5, title: 'Обсуждение: новая мета после патча 3.7 — нерф Берсерка убил класс?', category: 'Общее', author: 'MetaAnalyst', time: '6 часов назад', replies: 412, views: '28K', pinned: false, hot: true },
-  { id: 6, title: '[ОФИЦИАЛЬНО] Регламент NEXUS CUP 2026 — читай перед регистрацией', category: 'Турниры', author: 'NEXUS_ADMIN', time: '1 день назад', replies: 156, views: '67K', pinned: true, hot: false },
+const topics = [
+  { id: 1, title: 'МЕГА-ГАЙД: Как выйти на PRO уровень в Cyber Protocol за 30 дней', category: 'Гайды', author: 'ProGamer_RU', time: '1 ч. назад', replies: 234, views: '45K', pinned: true },
+  { id: 2, title: 'Нашёл баг — телепорт через стену на карте "Нова-Сити", репро 100%', category: 'Баги', author: 'BugHunter404', time: '2 ч. назад', replies: 89, views: '12K', pinned: false },
+  { id: 3, title: 'Продам аккаунт LEGEND ранг, 2000+ часов, все скины', category: 'Маркет', author: 'SellerPro', time: '3 ч. назад', replies: 15, views: '3.4K', pinned: false },
+  { id: 4, title: 'Ищу 5-ку для ранга — Diamond+, микрофон, 18+', category: 'Общее', author: 'TeamFinder_X', time: '4 ч. назад', replies: 67, views: '8.1K', pinned: false },
+  { id: 5, title: 'Обсуждение новой меты после патча 3.7 — нерф Берсерка убил класс?', category: 'Общее', author: 'MetaAnalyst', time: '6 ч. назад', replies: 412, views: '28K', pinned: false },
+  { id: 6, title: '[ОФИЦИАЛЬНО] Регламент NEXUS CUP 2026 — читай перед регистрацией', category: 'Турниры', author: 'NEXUS_ADMIN', time: '1 д. назад', replies: 156, views: '67K', pinned: true },
 ];
 
-const categoryColors: Record<string, string> = {
-  'Гайды': 'var(--neon-cyan)',
-  'Баги & Поддержка': 'var(--neon-purple)',
-  'Маркетплейс': '#ff9900',
-  'Общее': 'var(--neon-green)',
-  'Турниры': 'var(--neon-pink)',
-  'Оффтопик': '#7a9db5',
-};
+type Tab = 'topics' | 'categories';
 
 export default function ForumPage() {
   const [search, setSearch] = useState('');
-  const [activeSection, setActiveSection] = useState<'categories' | 'topics'>('topics');
+  const [tab, setTab] = useState<Tab>('topics');
 
-  const filtered = hotTopics.filter(t =>
-    t.title.toLowerCase().includes(search.toLowerCase())
-  );
+  const filtered = topics.filter(t => t.title.toLowerCase().includes(search.toLowerCase()));
 
   return (
-    <div className="min-h-screen px-6 md:px-16 pt-24 pb-16" style={{ background: 'var(--dark-bg)' }}>
-      {/* Header */}
-      <div className="mb-10">
-        <div className="flex items-center gap-3 mb-2">
-          <div className="w-1 h-8" style={{ background: 'var(--neon-green)' }}></div>
-          <h1 className="font-display text-3xl font-black tracking-wider" style={{ color: '#fff' }}>ФОРУМ</h1>
+    <div style={{ background: 'var(--bg)', minHeight: '100vh', paddingTop: '56px' }}>
+      <div className="px-6 md:px-16 py-10" style={{ borderBottom: '1px solid var(--border-color)' }}>
+        <div className="section-label mb-1">
+          <h1 className="font-display text-2xl font-black tracking-wider" style={{ color: 'var(--text-primary)' }}>ФОРУМ</h1>
         </div>
-        <p className="font-body text-sm ml-4" style={{ color: '#5a7a8a' }}>890,000+ тем от геймеров по всей России</p>
+        <p className="ml-4" style={{ color: 'var(--text-secondary)', fontSize: '13px' }}>890 000+ тем от геймеров России</p>
       </div>
 
-      {/* Search + New Topic */}
-      <div className="flex flex-col sm:flex-row gap-4 mb-8">
-        <div className="relative flex-1 max-w-xl">
-          <Icon name="Search" size={14} className="absolute left-3 top-1/2 -translate-y-1/2" style={{ color: 'var(--neon-green)' }} />
-          <input
-            type="text"
-            value={search}
-            onChange={e => setSearch(e.target.value)}
-            placeholder="Поиск по форуму..."
-            className="cyber-input w-full pl-9 pr-4 py-2.5 text-sm"
-          />
+      <div className="px-6 md:px-16 py-6">
+        {/* Controls */}
+        <div className="flex flex-col sm:flex-row gap-4 mb-6">
+          <div className="relative max-w-md flex-1">
+            <Icon name="Search" size={13} className="absolute left-3 top-1/2 -translate-y-1/2" style={{ color: 'var(--text-dim)' }} />
+            <input
+              type="text"
+              value={search}
+              onChange={e => setSearch(e.target.value)}
+              placeholder="Поиск по форуму..."
+              className="g-input w-full pl-9 pr-4 py-2.5 text-sm"
+            />
+          </div>
+          <button className="btn-red flex items-center gap-2 self-start">
+            <Icon name="Plus" size={13} />
+            Новая тема
+          </button>
         </div>
-        <button className="cyber-btn cyber-btn-primary flex items-center gap-2">
-          <Icon name="Plus" size={14} />
-          Новая тема
-        </button>
-      </div>
 
-      {/* Section tabs */}
-      <div className="flex gap-4 mb-8">
-        <button
-          onClick={() => setActiveSection('topics')}
-          className="font-display text-xs font-bold tracking-widest pb-2 transition-all duration-200"
-          style={{
-            color: activeSection === 'topics' ? 'var(--neon-green)' : '#3a5a6a',
-            borderBottom: activeSection === 'topics' ? '2px solid var(--neon-green)' : '2px solid transparent',
-          }}
-        >
-          ГОРЯЧИЕ ТЕМЫ
-        </button>
-        <button
-          onClick={() => setActiveSection('categories')}
-          className="font-display text-xs font-bold tracking-widest pb-2 transition-all duration-200"
-          style={{
-            color: activeSection === 'categories' ? 'var(--neon-green)' : '#3a5a6a',
-            borderBottom: activeSection === 'categories' ? '2px solid var(--neon-green)' : '2px solid transparent',
-          }}
-        >
-          РАЗДЕЛЫ
-        </button>
-      </div>
-
-      {activeSection === 'categories' && (
-        <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-4">
-          {forumCategories.map((cat, i) => (
-            <div
-              key={cat.id}
-              className="game-card p-5 cursor-pointer group"
-              style={{ animationDelay: `${i * 0.06}s` }}
-              onClick={() => setActiveSection('topics')}
-            >
-              <div className="flex items-center gap-4">
-                <div className="w-12 h-12 flex items-center justify-center text-2xl" style={{ border: `1px solid ${cat.color}`, background: `${cat.color}15` }}>
-                  {cat.icon}
-                </div>
-                <div className="flex-1">
-                  <h3 className="font-display text-sm font-bold mb-1" style={{ color: '#e0f0ff' }}>{cat.name}</h3>
-                  <p className="font-mono text-xs" style={{ color: '#3a5a6a', fontSize: '10px' }}>{cat.topics.toLocaleString()} тем</p>
-                </div>
-                <Icon name="ChevronRight" size={16} style={{ color: cat.color, opacity: 0.6 }} />
-              </div>
-            </div>
-          ))}
+        {/* Tabs */}
+        <div className="flex gap-6 mb-6" style={{ borderBottom: '1px solid var(--border-color)' }}>
+          {(['topics', 'categories'] as Tab[]).map(t => {
+            const labels = { topics: 'Горячие темы', categories: 'Разделы' };
+            return (
+              <button
+                key={t}
+                onClick={() => setTab(t)}
+                style={{
+                  fontFamily: 'Orbitron', fontSize: '9px', letterSpacing: '2px', textTransform: 'uppercase',
+                  color: tab === t ? 'var(--text-primary)' : 'var(--text-dim)',
+                  borderBottom: tab === t ? '2px solid var(--red)' : '2px solid transparent',
+                  paddingBottom: '10px', marginBottom: '-1px',
+                  transition: 'all 0.2s',
+                }}
+              >
+                {labels[t]}
+              </button>
+            );
+          })}
         </div>
-      )}
 
-      {activeSection === 'topics' && (
-        <div className="space-y-2">
-          {filtered.map((topic, i) => (
-            <div
-              key={topic.id}
-              className="game-card px-5 py-4 cursor-pointer group flex items-start gap-4"
-              style={{ animationDelay: `${i * 0.04}s` }}
-            >
-              {/* Left: icon */}
-              <div className="flex-shrink-0 w-10 h-10 flex items-center justify-center mt-0.5" style={{ border: '1px solid var(--dark-border)', background: 'rgba(0,0,0,0.3)' }}>
-                {topic.pinned
-                  ? <Icon name="Pin" size={14} style={{ color: 'var(--neon-cyan)' }} />
-                  : <Icon name="MessageSquare" size={14} style={{ color: '#3a5a6a' }} />
-                }
-              </div>
-
-              {/* Center: content */}
-              <div className="flex-1 min-w-0">
-                <div className="flex items-center gap-2 mb-1 flex-wrap">
-                  {topic.pinned && (
-                    <span className="font-mono text-xs px-1.5 py-0.5" style={{ color: 'var(--neon-cyan)', border: '1px solid var(--neon-cyan)', fontSize: '8px', letterSpacing: '1px' }}>
-                      ЗАКРЕП
-                    </span>
-                  )}
-                  {topic.hot && <span className="text-xs">🔥</span>}
-                  <span className="font-mono text-xs" style={{ color: categoryColors[topic.category] || '#5a7a8a', fontSize: '9px', letterSpacing: '1px' }}>
-                    {topic.category.toUpperCase()}
-                  </span>
-                </div>
-                <h3 className="font-body font-semibold text-sm group-hover:text-white transition-colors truncate" style={{ color: '#c0d8e8' }}>
-                  {topic.title}
-                </h3>
-                <div className="flex items-center gap-3 mt-1">
-                  <span className="font-mono text-xs" style={{ color: 'var(--neon-green)', fontSize: '10px', opacity: 0.8 }}>{topic.author}</span>
-                  <span className="font-mono text-xs" style={{ color: '#2a4a5a', fontSize: '10px' }}>{topic.time}</span>
-                </div>
-              </div>
-
-              {/* Right: stats */}
-              <div className="flex-shrink-0 text-right hidden sm:block">
-                <div className="flex items-center gap-3">
-                  <div className="flex items-center gap-1">
-                    <Icon name="MessageCircle" size={11} style={{ color: '#3a5a6a' }} />
-                    <span className="font-mono text-xs" style={{ color: '#5a7a8a', fontSize: '10px' }}>{topic.replies}</span>
+        {/* Categories */}
+        {tab === 'categories' && (
+          <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-4">
+            {forumCategories.map((cat, i) => (
+              <div key={cat.id} className={`g-card p-5 cursor-pointer fade-up-${Math.min(i + 1, 5)}`} onClick={() => setTab('topics')}>
+                <div className="flex items-center justify-between">
+                  <div>
+                    <h3 className="font-display font-bold mb-1" style={{ fontSize: '11px', color: 'var(--text-primary)' }}>{cat.name.toUpperCase()}</h3>
+                    <p style={{ fontFamily: 'Orbitron', fontSize: '8px', color: 'var(--text-dim)' }}>{cat.topics.toLocaleString('ru')} тем</p>
                   </div>
-                  <div className="flex items-center gap-1">
-                    <Icon name="Eye" size={11} style={{ color: '#3a5a6a' }} />
-                    <span className="font-mono text-xs" style={{ color: '#5a7a8a', fontSize: '10px' }}>{topic.views}</span>
+                  <div className="text-right">
+                    <Icon name="ChevronRight" size={14} style={{ color: 'var(--text-dim)' }} />
+                    <p style={{ fontFamily: 'Orbitron', fontSize: '7px', color: 'var(--text-dim)', marginTop: '4px' }}>{cat.last}</p>
                   </div>
                 </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
+        )}
 
-          {filtered.length === 0 && (
-            <div className="text-center py-24">
-              <div className="text-5xl mb-4">🔍</div>
-              <p className="font-display text-sm tracking-widest" style={{ color: '#3a5a6a' }}>НИЧЕГО НЕ НАЙДЕНО</p>
-            </div>
-          )}
-        </div>
-      )}
+        {/* Topics */}
+        {tab === 'topics' && (
+          <div style={{ border: '1px solid var(--border-color)' }}>
+            {filtered.map((topic, i) => (
+              <div
+                key={topic.id}
+                className="flex items-start gap-4 px-5 py-4 cursor-pointer transition-colors"
+                style={{
+                  borderBottom: i < filtered.length - 1 ? '1px solid var(--border-color)' : 'none',
+                  background: topic.pinned ? 'rgba(224,32,32,0.03)' : 'var(--bg-card)',
+                }}
+                onMouseEnter={e => (e.currentTarget.style.background = 'var(--bg-card-hover)')}
+                onMouseLeave={e => (e.currentTarget.style.background = topic.pinned ? 'rgba(224,32,32,0.03)' : 'var(--bg-card)')}
+              >
+                <div className="flex-shrink-0 mt-0.5">
+                  {topic.pinned
+                    ? <Icon name="Pin" size={13} style={{ color: 'var(--red)' }} />
+                    : <Icon name="MessageSquare" size={13} style={{ color: 'var(--text-dim)' }} />
+                  }
+                </div>
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-center gap-2 mb-1 flex-wrap">
+                    {topic.pinned && <span className="tag-red">Закреп</span>}
+                    <span className="tag-dim">{topic.category.toUpperCase()}</span>
+                  </div>
+                  <p className="font-body font-semibold truncate" style={{ color: 'var(--text-primary)', fontSize: '14px' }}>{topic.title}</p>
+                  <div className="flex items-center gap-3 mt-1">
+                    <span style={{ fontFamily: 'Orbitron', fontSize: '8px', color: 'var(--red)', opacity: 0.8 }}>{topic.author}</span>
+                    <span style={{ fontFamily: 'Orbitron', fontSize: '8px', color: 'var(--text-dim)' }}>{topic.time}</span>
+                  </div>
+                </div>
+                <div className="hidden sm:flex items-center gap-4 flex-shrink-0">
+                  <div className="text-center">
+                    <div style={{ fontFamily: 'Orbitron', fontSize: '11px', color: 'var(--text-secondary)' }}>{topic.replies}</div>
+                    <div style={{ fontFamily: 'Orbitron', fontSize: '7px', color: 'var(--text-dim)' }}>ответов</div>
+                  </div>
+                  <div className="text-center">
+                    <div style={{ fontFamily: 'Orbitron', fontSize: '11px', color: 'var(--text-secondary)' }}>{topic.views}</div>
+                    <div style={{ fontFamily: 'Orbitron', fontSize: '7px', color: 'var(--text-dim)' }}>просмотров</div>
+                  </div>
+                </div>
+              </div>
+            ))}
+            {filtered.length === 0 && (
+              <div className="text-center py-16" style={{ background: 'var(--bg-card)' }}>
+                <p style={{ fontFamily: 'Orbitron', fontSize: '10px', letterSpacing: '2px', color: 'var(--text-dim)' }}>НИЧЕГО НЕ НАЙДЕНО</p>
+              </div>
+            )}
+          </div>
+        )}
+      </div>
     </div>
   );
 }

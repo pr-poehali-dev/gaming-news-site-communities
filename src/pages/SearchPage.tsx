@@ -1,20 +1,20 @@
 import { useState } from 'react';
 import Icon from '@/components/ui/icon';
 
-type SearchTab = 'news' | 'games' | 'users';
+type Tab = 'news' | 'games' | 'users';
 
 const allNews = [
-  { title: 'NEXUS CUP 2026 — регистрация открыта', category: 'Турниры', time: '2 часа назад' },
-  { title: 'Cyber Protocol 3.7: новые карты и режим «Хаос»', category: 'Обновления', time: '5 часов назад' },
-  { title: 'Рейтинг лучших геймеров России — апрель 2026', category: 'Рейтинги', time: '1 день назад' },
+  { title: 'NEXUS CUP 2026 — регистрация открыта', category: 'Турниры', time: '2 ч. назад' },
+  { title: 'Cyber Protocol 3.7: новые карты и режим «Хаос»', category: 'Обновления', time: '5 ч. назад' },
+  { title: 'Рейтинг лучших геймеров России — апрель 2026', category: 'Рейтинги', time: '1 д. назад' },
 ];
 
 const allGames = [
-  { name: 'Cyber Protocol', genre: 'Battle Royale', players: '2.4M', rating: 9.2, icon: '🎮' },
-  { name: 'Void Runners', genre: 'MOBA', players: '1.8M', rating: 8.7, icon: '⚔️' },
-  { name: 'Iron Citadel', genre: 'RTS', players: '980K', rating: 8.1, icon: '🏰' },
-  { name: 'Neon Drift', genre: 'Racing', players: '740K', rating: 7.9, icon: '🚗' },
-  { name: 'Shadow Realm', genre: 'RPG', players: '620K', rating: 8.5, icon: '🧙' },
+  { name: 'CYBER PROTOCOL', genre: 'Battle Royale', players: '2.4M', rating: 9.2 },
+  { name: 'VOID RUNNERS', genre: 'MOBA', players: '1.8M', rating: 8.7 },
+  { name: 'IRON CITADEL', genre: 'RTS', players: '980K', rating: 8.1 },
+  { name: 'NEON DRIFT', genre: 'Racing', players: '740K', rating: 7.9 },
+  { name: 'SHADOW REALM', genre: 'RPG', players: '620K', rating: 8.5 },
 ];
 
 const allUsers = [
@@ -26,136 +26,141 @@ const allUsers = [
 
 export default function SearchPage({ query }: { query?: string }) {
   const [search, setSearch] = useState(query || '');
-  const [tab, setTab] = useState<SearchTab>('news');
+  const [tab, setTab] = useState<Tab>('news');
 
   const filteredNews = allNews.filter(n => n.title.toLowerCase().includes(search.toLowerCase()));
   const filteredGames = allGames.filter(g => g.name.toLowerCase().includes(search.toLowerCase()) || g.genre.toLowerCase().includes(search.toLowerCase()));
   const filteredUsers = allUsers.filter(u => u.name.toLowerCase().includes(search.toLowerCase()));
 
-  const tabs: { id: SearchTab; label: string; count: number }[] = [
-    { id: 'news', label: 'Новости', count: filteredNews.length },
-    { id: 'games', label: 'Игры', count: filteredGames.length },
-    { id: 'users', label: 'Пользователи', count: filteredUsers.length },
+  const tabs = [
+    { id: 'news' as Tab, label: 'Новости', count: filteredNews.length },
+    { id: 'games' as Tab, label: 'Игры', count: filteredGames.length },
+    { id: 'users' as Tab, label: 'Пользователи', count: filteredUsers.length },
   ];
 
   return (
-    <div className="min-h-screen px-6 md:px-16 pt-24 pb-16" style={{ background: 'var(--dark-bg)' }}>
-      <div className="mb-8">
-        <div className="flex items-center gap-3 mb-6">
-          <div className="w-1 h-8" style={{ background: 'var(--neon-cyan)' }}></div>
-          <h1 className="font-display text-3xl font-black tracking-wider" style={{ color: '#fff' }}>ПОИСК</h1>
+    <div style={{ background: 'var(--bg)', minHeight: '100vh', paddingTop: '56px' }}>
+      <div className="px-6 md:px-16 py-10" style={{ borderBottom: '1px solid var(--border-color)' }}>
+        <div className="section-label mb-4">
+          <h1 className="font-display text-2xl font-black tracking-wider" style={{ color: 'var(--text-primary)' }}>ПОИСК</h1>
         </div>
-
-        {/* Search input */}
-        <div className="relative max-w-2xl">
-          <Icon name="Search" size={18} className="absolute left-4 top-1/2 -translate-y-1/2" style={{ color: 'var(--neon-cyan)' }} />
+        <div className="relative max-w-xl ml-4">
+          <Icon name="Search" size={15} className="absolute left-3 top-1/2 -translate-y-1/2" style={{ color: 'var(--text-dim)' }} />
           <input
             type="text"
             value={search}
             onChange={e => setSearch(e.target.value)}
             placeholder="Поиск по новостям, играм и пользователям..."
-            className="cyber-input w-full pl-12 pr-4 py-3 text-base"
+            className="g-input w-full pl-10 pr-4 py-3 text-base"
             autoFocus
           />
           {search && (
-            <button onClick={() => setSearch('')} className="absolute right-4 top-1/2 -translate-y-1/2" style={{ color: '#3a5a6a' }}>
-              <Icon name="X" size={14} />
+            <button onClick={() => setSearch('')} className="absolute right-3 top-1/2 -translate-y-1/2" style={{ color: 'var(--text-dim)' }}>
+              <Icon name="X" size={13} />
             </button>
           )}
         </div>
       </div>
 
-      {/* Tabs */}
-      <div className="flex gap-6 mb-8" style={{ borderBottom: '1px solid var(--dark-border)' }}>
-        {tabs.map(t => (
-          <button
-            key={t.id}
-            onClick={() => setTab(t.id)}
-            className="font-display text-xs font-bold tracking-widest pb-3 flex items-center gap-2 transition-all duration-200"
-            style={{
-              color: tab === t.id ? 'var(--neon-cyan)' : '#3a5a6a',
-              borderBottom: tab === t.id ? '2px solid var(--neon-cyan)' : '2px solid transparent',
-              marginBottom: '-1px',
-            }}
-          >
-            {t.label.toUpperCase()}
-            <span className="font-mono text-xs px-1.5 py-0.5 rounded-sm" style={{ background: tab === t.id ? 'var(--neon-cyan)' : 'var(--dark-border)', color: tab === t.id ? '#000' : '#5a7a8a', fontSize: '9px' }}>
-              {t.count}
-            </span>
-          </button>
-        ))}
+      <div className="px-6 md:px-16 py-6">
+        {/* Tabs */}
+        <div className="flex gap-6 mb-6" style={{ borderBottom: '1px solid var(--border-color)' }}>
+          {tabs.map(t => (
+            <button
+              key={t.id}
+              onClick={() => setTab(t.id)}
+              className="flex items-center gap-2"
+              style={{
+                fontFamily: 'Orbitron', fontSize: '9px', letterSpacing: '2px', textTransform: 'uppercase',
+                color: tab === t.id ? 'var(--text-primary)' : 'var(--text-dim)',
+                borderBottom: tab === t.id ? '2px solid var(--red)' : '2px solid transparent',
+                paddingBottom: '10px', marginBottom: '-1px', transition: 'all 0.2s',
+              }}
+            >
+              {t.label}
+              <span style={{ background: tab === t.id ? 'var(--red)' : 'var(--border-color)', color: tab === t.id ? '#fff' : 'var(--text-dim)', fontSize: '7px', padding: '1px 5px', fontFamily: 'Orbitron' }}>
+                {t.count}
+              </span>
+            </button>
+          ))}
+        </div>
+
+        {/* News results */}
+        {tab === 'news' && (
+          <div style={{ border: '1px solid var(--border-color)' }}>
+            {filteredNews.map((n, i) => (
+              <div key={i} className="flex items-center gap-4 px-5 py-4 cursor-pointer transition-colors"
+                style={{ borderBottom: i < filteredNews.length - 1 ? '1px solid var(--border-color)' : 'none', background: 'var(--bg-card)' }}
+                onMouseEnter={e => (e.currentTarget.style.background = 'var(--bg-card-hover)')}
+                onMouseLeave={e => (e.currentTarget.style.background = 'var(--bg-card)')}
+              >
+                <Icon name="Newspaper" size={14} style={{ color: 'var(--text-dim)', flexShrink: 0 }} />
+                <div className="flex-1">
+                  <p className="font-body font-semibold" style={{ color: 'var(--text-primary)', fontSize: '14px' }}>{n.title}</p>
+                  <div className="flex gap-3 mt-1">
+                    <span className="tag-red">{n.category.toUpperCase()}</span>
+                    <span style={{ fontFamily: 'Orbitron', fontSize: '8px', color: 'var(--text-dim)' }}>{n.time}</span>
+                  </div>
+                </div>
+                <Icon name="ChevronRight" size={13} style={{ color: 'var(--text-dim)', flexShrink: 0 }} />
+              </div>
+            ))}
+            {filteredNews.length === 0 && <Empty />}
+          </div>
+        )}
+
+        {/* Games results */}
+        {tab === 'games' && (
+          <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-4">
+            {filteredGames.map((g, i) => (
+              <div key={i} className="g-card p-5 cursor-pointer">
+                <h3 className="font-display font-black mb-1" style={{ fontSize: '12px', color: 'var(--text-primary)' }}>{g.name}</h3>
+                <p style={{ fontFamily: 'Orbitron', fontSize: '8px', color: 'var(--text-dim)', marginBottom: '10px' }}>{g.genre.toUpperCase()} · {g.players} ИГРОКОВ</p>
+                <div className="flex items-center gap-1.5">
+                  <Icon name="Star" size={10} style={{ color: 'var(--red)' }} />
+                  <span style={{ fontFamily: 'Orbitron', fontSize: '9px', color: 'var(--text-secondary)' }}>{g.rating}</span>
+                </div>
+              </div>
+            ))}
+            {filteredGames.length === 0 && <Empty />}
+          </div>
+        )}
+
+        {/* Users results */}
+        {tab === 'users' && (
+          <div style={{ border: '1px solid var(--border-color)' }}>
+            {filteredUsers.map((u, i) => (
+              <div key={i} className="flex items-center gap-4 px-5 py-4 cursor-pointer transition-colors"
+                style={{ borderBottom: i < filteredUsers.length - 1 ? '1px solid var(--border-color)' : 'none', background: 'var(--bg-card)' }}
+                onMouseEnter={e => (e.currentTarget.style.background = 'var(--bg-card-hover)')}
+                onMouseLeave={e => (e.currentTarget.style.background = 'var(--bg-card)')}
+              >
+                <div className="w-9 h-9 flex items-center justify-center font-display font-black" style={{ border: '1px solid var(--border-color)', color: 'var(--text-secondary)', fontSize: '13px' }}>
+                  {u.name[0]}
+                </div>
+                <div className="flex-1">
+                  <div className="flex items-center gap-2">
+                    <p className="font-display font-black" style={{ fontSize: '11px', color: 'var(--text-primary)' }}>{u.name}</p>
+                    {u.online && <div className="dot-green" style={{ width: '5px', height: '5px' }}></div>}
+                  </div>
+                  <p style={{ fontFamily: 'Orbitron', fontSize: '8px', color: 'var(--text-dim)', marginTop: '2px' }}>{u.rank} · {u.game.toUpperCase()}</p>
+                </div>
+                <button className="btn-ghost" style={{ padding: '5px 14px', fontSize: '8px' }}>Профиль</button>
+              </div>
+            ))}
+            {filteredUsers.length === 0 && <Empty />}
+          </div>
+        )}
       </div>
-
-      {/* Results */}
-      {tab === 'news' && (
-        <div className="space-y-3">
-          {filteredNews.map((n, i) => (
-            <div key={i} className="game-card px-5 py-4 cursor-pointer group flex items-center gap-4">
-              <Icon name="Newspaper" size={18} style={{ color: 'var(--neon-cyan)' }} />
-              <div className="flex-1">
-                <h3 className="font-body font-semibold text-sm group-hover:text-white transition-colors" style={{ color: '#c0d8e8' }}>{n.title}</h3>
-                <div className="flex gap-3 mt-1">
-                  <span className="font-mono text-xs" style={{ color: 'var(--neon-cyan)', fontSize: '10px' }}>{n.category}</span>
-                  <span className="font-mono text-xs" style={{ color: '#2a4a5a', fontSize: '10px' }}>{n.time}</span>
-                </div>
-              </div>
-              <Icon name="ChevronRight" size={14} style={{ color: '#3a5a6a' }} />
-            </div>
-          ))}
-          {filteredNews.length === 0 && <Empty />}
-        </div>
-      )}
-
-      {tab === 'games' && (
-        <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-4">
-          {filteredGames.map((g, i) => (
-            <div key={i} className="game-card p-5 cursor-pointer group flex items-center gap-4">
-              <div className="text-4xl">{g.icon}</div>
-              <div className="flex-1">
-                <h3 className="font-display text-sm font-bold group-hover:text-white transition-colors" style={{ color: '#e0f0ff', fontSize: '12px' }}>{g.name}</h3>
-                <p className="font-mono text-xs mt-0.5" style={{ color: '#5a7a8a', fontSize: '10px' }}>{g.genre} • {g.players} игроков</p>
-                <div className="flex items-center gap-1 mt-1">
-                  <Icon name="Star" size={10} style={{ color: '#ff9900' }} />
-                  <span className="font-mono text-xs" style={{ color: '#ff9900', fontSize: '10px' }}>{g.rating}</span>
-                </div>
-              </div>
-            </div>
-          ))}
-          {filteredGames.length === 0 && <Empty />}
-        </div>
-      )}
-
-      {tab === 'users' && (
-        <div className="space-y-3">
-          {filteredUsers.map((u, i) => (
-            <div key={i} className="game-card px-5 py-4 cursor-pointer group flex items-center gap-4">
-              <div className="w-10 h-10 flex items-center justify-center font-display font-bold" style={{ border: '1px solid var(--neon-green)', background: 'rgba(0, 255, 136, 0.05)', color: 'var(--neon-green)' }}>
-                {u.name[0]}
-              </div>
-              <div className="flex-1">
-                <div className="flex items-center gap-3">
-                  <h3 className="font-display text-sm font-bold group-hover:text-white transition-colors" style={{ color: '#e0f0ff', fontSize: '12px' }}>{u.name}</h3>
-                  {u.online && <div className="online-dot" style={{ width: '6px', height: '6px' }}></div>}
-                </div>
-                <p className="font-mono text-xs mt-0.5" style={{ color: '#5a7a8a', fontSize: '10px' }}>{u.rank} • {u.game}</p>
-              </div>
-              <button className="font-mono text-xs px-3 py-1" style={{ border: '1px solid var(--dark-border)', color: '#5a7a8a' }}>
-                ПРОФИЛЬ
-              </button>
-            </div>
-          ))}
-          {filteredUsers.length === 0 && <Empty />}
-        </div>
-      )}
     </div>
   );
 }
 
 function Empty() {
   return (
-    <div className="text-center py-16">
-      <div className="text-4xl mb-4">🔍</div>
-      <p className="font-display text-sm tracking-widest" style={{ color: '#3a5a6a' }}>НИЧЕГО НЕ НАЙДЕНО</p>
+    <div className="text-center py-14" style={{ background: 'var(--bg-card)' }}>
+      <Icon name="Search" size={28} style={{ color: 'var(--text-dim)', margin: '0 auto 10px' }} />
+      <p style={{ fontFamily: 'Orbitron', fontSize: '9px', letterSpacing: '2px', color: 'var(--text-dim)' }}>НИЧЕГО НЕ НАЙДЕНО</p>
     </div>
   );
 }
