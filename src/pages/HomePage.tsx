@@ -41,7 +41,7 @@ export default function HomePage({ onPageChange }: HomePageProps) {
       <div style={{ background: 'var(--bg-card)', borderBottom: '1px solid var(--border-color)', marginTop: '56px', overflow: 'hidden' }}>
         <div className="py-1.5 flex" style={{ animation: 'ticker 36s linear infinite', whiteSpace: 'nowrap' }}>
           {[1, 2].map(i => (
-            <span key={i} className="px-8" style={{ fontFamily: 'Orbitron', fontSize: '9px', letterSpacing: '2px', color: 'var(--text-dim)' }}>
+            <span key={i} className="px-8" style={{ fontFamily: 'Orbitron', fontSize: '12px', letterSpacing: '2px', color: 'var(--text-secondary)' }}>
               NEXUS CUP 2026 — РЕГИСТРАЦИЯ ОТКРЫТА &nbsp;·&nbsp; ОБНОВЛЕНИЕ 3.7 ДОСТУПНО &nbsp;·&nbsp; ТОП-100 ОБНОВЛЁН &nbsp;·&nbsp; RIOT GAMES ПАРТНЁР ПЛАТФОРМЫ &nbsp;·&nbsp; 47 892 ОНЛАЙН &nbsp;·&nbsp;
             </span>
           ))}
@@ -50,11 +50,7 @@ export default function HomePage({ onPageChange }: HomePageProps) {
 
       {/* Hero */}
       <section className="relative" style={{ minHeight: '88vh', display: 'flex', alignItems: 'center' }}>
-        <div className="absolute inset-0">
-          <img src={HERO_IMAGE} alt="" className="w-full h-full object-cover" style={{ opacity: 0.12 }} />
-          <div className="absolute inset-0" style={{ background: 'linear-gradient(to right, var(--bg) 40%, transparent 100%)' }} />
-          <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, var(--bg) 0%, transparent 60%)' }} />
-        </div>
+        <div className="absolute inset-0" style={{ background: 'var(--bg)' }} />
 
         <div className="relative z-10 px-6 md:px-16 w-full">
           <div className="max-w-xl">
@@ -137,7 +133,13 @@ export default function HomePage({ onPageChange }: HomePageProps) {
         </div>
         <div className="grid md:grid-cols-3 gap-4">
           {latestNews.map((item, i) => (
-            <div key={item.id} className={`g-card g-card-red p-5 cursor-pointer fade-up-${i + 1}`}>
+            <div
+              key={item.id}
+              className={`g-card g-card-red p-5 cursor-pointer fade-up-${i + 1}`}
+              onClick={() => onPageChange('news')}
+              onMouseEnter={e => (e.currentTarget.style.borderColor = 'var(--red)')}
+              onMouseLeave={e => (e.currentTarget.style.borderColor = 'var(--border-color)')}
+            >
               <span className="tag-red mb-3 inline-block">{item.category}</span>
               <h3 className="font-body font-semibold leading-snug mb-4" style={{ color: 'var(--text-primary)', fontSize: '14px', lineHeight: '1.5' }}>{item.title}</h3>
               <div className="flex items-center justify-between">

@@ -69,7 +69,12 @@ export default function NewsPage() {
         {/* Grid */}
         <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-4">
           {filtered.map((item, i) => (
-            <div key={item.id} className={`g-card g-card-red p-5 cursor-pointer fade-up-${Math.min(i + 1, 5)}`}>
+            <div
+              key={item.id}
+              className={`g-card g-card-red p-5 cursor-pointer fade-up-${Math.min(i + 1, 5)}`}
+              onMouseEnter={e => (e.currentTarget.style.borderColor = 'var(--red)')}
+              onMouseLeave={e => (e.currentTarget.style.borderColor = 'var(--border-color)')}
+            >
               <span className="tag-red mb-3 inline-block">{item.category.toUpperCase()}</span>
               <h3 className="font-body font-semibold mb-4 leading-snug" style={{ color: 'var(--text-primary)', fontSize: '14px', lineHeight: '1.55' }}>
                 {item.title}

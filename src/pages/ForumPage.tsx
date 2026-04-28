@@ -24,6 +24,7 @@ type Tab = 'topics' | 'categories';
 export default function ForumPage() {
   const [search, setSearch] = useState('');
   const [tab, setTab] = useState<Tab>('topics');
+  const [openTopic, setOpenTopic] = useState<number | null>(null);
 
   const filtered = topics.filter(t => t.title.toLowerCase().includes(search.toLowerCase()));
 
@@ -49,7 +50,10 @@ export default function ForumPage() {
               className="g-input w-full pl-9 pr-4 py-2.5 text-sm"
             />
           </div>
-          <button className="btn-red flex items-center gap-2 self-start">
+          <button
+            className="btn-red flex items-center gap-2 self-start"
+            onClick={() => alert('Создание темы будет доступно после регистрации')}
+          >
             <Icon name="Plus" size={13} />
             Новая тема
           </button>
@@ -106,10 +110,12 @@ export default function ForumPage() {
                 className="flex items-start gap-4 px-5 py-4 cursor-pointer transition-colors"
                 style={{
                   borderBottom: i < filtered.length - 1 ? '1px solid var(--border-color)' : 'none',
-                  background: topic.pinned ? 'rgba(224,32,32,0.03)' : 'var(--bg-card)',
+                  background: openTopic === topic.id ? 'rgba(224,32,32,0.06)' : topic.pinned ? 'rgba(224,32,32,0.03)' : 'var(--bg-card)',
+                  borderLeft: openTopic === topic.id ? '2px solid var(--red)' : '2px solid transparent',
                 }}
-                onMouseEnter={e => (e.currentTarget.style.background = 'var(--bg-card-hover)')}
-                onMouseLeave={e => (e.currentTarget.style.background = topic.pinned ? 'rgba(224,32,32,0.03)' : 'var(--bg-card)')}
+                onClick={() => setOpenTopic(openTopic === topic.id ? null : topic.id)}
+                onMouseEnter={e => { if (openTopic !== topic.id) e.currentTarget.style.background = 'var(--bg-card-hover)'; }}
+                onMouseLeave={e => { if (openTopic !== topic.id) e.currentTarget.style.background = topic.pinned ? 'rgba(224,32,32,0.03)' : 'var(--bg-card)'; }}
               >
                 <div className="flex-shrink-0 mt-0.5">
                   {topic.pinned

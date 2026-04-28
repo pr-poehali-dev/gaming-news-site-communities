@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import Icon from '@/components/ui/icon';
 
+type JoinState = Record<number, boolean>;
+
 const communities = [
   { id: 1, name: 'CYBER PROTOCOL OFFICIAL', game: 'Cyber Protocol', members: '84K', online: 2341, category: 'Battle Royale' },
   { id: 2, name: 'VOID RUNNERS SQUAD', game: 'Void Runners', members: '52K', online: 1820, category: 'MOBA' },
@@ -15,6 +17,7 @@ const categories = ['Все', 'Battle Royale', 'MOBA', 'RPG', 'RTS', 'Racing', '
 export default function CommunitiesPage() {
   const [search, setSearch] = useState('');
   const [activeCategory, setActiveCategory] = useState('Все');
+  const [joined, setJoined] = useState<JoinState>({});
 
   const filtered = communities.filter(c => {
     const matchCat = activeCategory === 'Все' || c.category === activeCategory;
@@ -83,8 +86,12 @@ export default function CommunitiesPage() {
                   </div>
                 </div>
 
-                <button className="btn-ghost w-full" style={{ padding: '8px', fontSize: '9px' }}>
-                  Вступить
+                <button
+                  className={joined[c.id] ? 'btn-red w-full' : 'btn-ghost w-full'}
+                  style={{ padding: '8px', fontSize: '9px' }}
+                  onClick={() => setJoined(prev => ({ ...prev, [c.id]: !prev[c.id] }))}
+                >
+                  {joined[c.id] ? '✓ Вы вступили' : 'Вступить'}
                 </button>
               </div>
             </div>
