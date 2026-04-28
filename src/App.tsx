@@ -1,28 +1,42 @@
-
+import { useState } from 'react';
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Index from "./pages/Index";
-import NotFound from "./pages/NotFound";
+import Navbar from '@/components/Navbar';
+import HomePage from '@/pages/HomePage';
+import NewsPage from '@/pages/NewsPage';
+import CommunitiesPage from '@/pages/CommunitiesPage';
+import ForumPage from '@/pages/ForumPage';
+import ProfilePage from '@/pages/ProfilePage';
+import SearchPage from '@/pages/SearchPage';
 
-const queryClient = new QueryClient();
+type Page = 'home' | 'news' | 'communities' | 'forum' | 'profile' | 'search';
 
-const App = () => (
-  <QueryClientProvider client={queryClient}>
+export default function App() {
+  const [currentPage, setCurrentPage] = useState<Page>('home');
+
+  const renderPage = () => {
+    switch (currentPage) {
+      case 'home': return <HomePage onPageChange={(p) => setCurrentPage(p as Page)} />;
+      case 'news': return <NewsPage />;
+      case 'communities': return <CommunitiesPage />;
+      case 'forum': return <ForumPage />;
+      case 'profile': return <ProfilePage />;
+      case 'search': return <SearchPage />;
+      default: return <HomePage onPageChange={(p) => setCurrentPage(p as Page)} />;
+    }
+  };
+
+  return (
     <TooltipProvider>
       <Toaster />
       <Sonner />
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Index />} />
-          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </BrowserRouter>
+      <div className="scanlines" style={{ minHeight: '100vh', background: 'var(--dark-bg)' }}>
+        <Navbar currentPage={currentPage} onPageChange={(page) => setCurrentPage(page as Page)} />
+        <main>
+          {renderPage()}
+        </main>
+      </div>
     </TooltipProvider>
-  </QueryClientProvider>
-);
-
-export default App;
+  );
+}
