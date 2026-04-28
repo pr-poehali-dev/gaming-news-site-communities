@@ -53,8 +53,8 @@
   body {
     background-color: var(--bg);
     color: var(--text-primary);
-    font-family: "Rajdhani", sans-serif;
-    font-size: 15px;
+    font-family: "Inter", sans-serif;
+    font-size: 16px;
     overflow-x: hidden;
   }
   h1,
@@ -62,6 +62,14 @@
   h3,
   .font-display {
     font-family: "Orbitron", monospace;
+  }
+  p,
+  span,
+  div,
+  button,
+  input,
+  textarea {
+    font-family: inherit;
   }
 }
 
@@ -99,12 +107,12 @@
 .btn-red {
   background: var(--red);
   color: #fff;
-  font-family: "Orbitron", monospace;
-  font-size: 11px;
+  font-family: "Inter", sans-serif;
+  font-size: 14px;
   font-weight: 700;
-  letter-spacing: 2px;
+  letter-spacing: 0.5px;
   text-transform: uppercase;
-  padding: 10px 24px;
+  padding: 12px 28px;
   border: none;
   cursor: pointer;
   transition: background 0.2s;
@@ -116,12 +124,12 @@
 .btn-ghost {
   background: transparent;
   color: var(--text-secondary);
-  font-family: "Orbitron", monospace;
-  font-size: 11px;
+  font-family: "Inter", sans-serif;
+  font-size: 14px;
   font-weight: 600;
-  letter-spacing: 2px;
+  letter-spacing: 0.5px;
   text-transform: uppercase;
-  padding: 10px 24px;
+  padding: 12px 28px;
   border: 1px solid var(--border-color);
   cursor: pointer;
   transition: all 0.2s;

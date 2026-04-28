@@ -49,54 +49,64 @@ export default function HomePage({ onPageChange }: HomePageProps) {
       </div>
 
       {/* Hero */}
-      <section className="relative" style={{ minHeight: '88vh', display: 'flex', alignItems: 'center' }}>
-        <div className="absolute inset-0" style={{ background: 'var(--bg)' }} />
+      <section className="relative" style={{ minHeight: '92vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        {/* Background */}
+        <div className="absolute inset-0">
+          <img src={HERO_IMAGE} alt="" className="w-full h-full object-cover" style={{ opacity: 0.18 }} />
+          <div className="absolute inset-0" style={{ background: 'linear-gradient(180deg, rgba(20,20,20,0.6) 0%, rgba(20,20,20,0.85) 60%, #141414 100%)' }} />
+          <div className="absolute inset-0" style={{ background: 'radial-gradient(ellipse at center, transparent 30%, rgba(20,20,20,0.7) 100%)' }} />
+        </div>
 
-        <div className="relative z-10 px-6 md:px-16 w-full">
-          <div className="max-w-xl">
-            {/* Label */}
-            <div className={`flex items-center gap-3 mb-6 transition-all duration-500 ${visible ? 'opacity-100' : 'opacity-0'}`}>
-              <div className="dot-red"></div>
-              <span style={{ fontFamily: 'Orbitron', fontSize: '9px', letterSpacing: '3px', color: 'var(--text-dim)', textTransform: 'uppercase' }}>Система онлайн</span>
-            </div>
+        {/* Center content */}
+        <div className="relative z-10 px-6 w-full flex flex-col items-center text-center">
+          {/* Label */}
+          <div className={`flex items-center gap-3 mb-6 transition-all duration-500 ${visible ? 'opacity-100' : 'opacity-0'}`}>
+            <div className="dot-red"></div>
+            <span style={{ fontFamily: 'Orbitron', fontSize: '10px', letterSpacing: '4px', color: 'var(--text-dim)', textTransform: 'uppercase' }}>Система онлайн</span>
+            <div className="dot-red"></div>
+          </div>
 
-            {/* Title */}
-            <h1
-              className={`font-display font-black leading-none mb-5 transition-all duration-600 ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}
-              style={{ fontSize: 'clamp(40px, 7vw, 80px)', color: 'var(--text-primary)', letterSpacing: '-1px' }}
-            >
-              ИГРОВАЯ<br />
-              <span style={{ color: 'var(--red)' }}>ПЛАТФОРМА</span><br />
-              NEXUS
-            </h1>
+          {/* Title */}
+          <h1
+            className={`font-display font-black leading-none mb-6 transition-all duration-600 ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}
+            style={{ fontSize: 'clamp(48px, 9vw, 110px)', color: 'var(--text-primary)', letterSpacing: '-2px', lineHeight: 0.9 }}
+          >
+            NEXUS
+          </h1>
+          <p
+            className={`font-display font-bold mb-3 transition-all duration-600 ${visible ? 'opacity-100' : 'opacity-0'}`}
+            style={{ fontSize: 'clamp(14px, 2.5vw, 22px)', color: 'var(--red)', letterSpacing: '6px', textTransform: 'uppercase' }}
+          >
+            Игровая платформа
+          </p>
 
-            <p
-              className={`mb-8 transition-all duration-600 delay-100 ${visible ? 'opacity-100' : 'opacity-0'}`}
-              style={{ color: 'var(--text-secondary)', fontSize: '16px', lineHeight: '1.7', maxWidth: '420px' }}
-            >
-              Новости, турниры, сообщества и форум для геймеров России — всё в одном месте.
-            </p>
+          <p
+            className={`mb-10 transition-all duration-600 delay-100 ${visible ? 'opacity-100' : 'opacity-0'}`}
+            style={{ color: 'var(--text-secondary)', fontSize: '18px', lineHeight: '1.7', maxWidth: '520px' }}
+          >
+            Новости, турниры, сообщества и форум для геймеров России — всё в одном месте.
+          </p>
 
-            <div className={`flex gap-3 transition-all duration-600 delay-150 ${visible ? 'opacity-100' : 'opacity-0'}`}>
-              <button className="btn-red" onClick={() => onPageChange('communities')}>Вступить</button>
-              <button className="btn-ghost" onClick={() => onPageChange('news')}>Новости</button>
-            </div>
+          <div className={`flex gap-4 transition-all duration-600 delay-150 ${visible ? 'opacity-100' : 'opacity-0'}`}>
+            <button className="btn-red" onClick={() => onPageChange('communities')}>Вступить</button>
+            <button className="btn-ghost" onClick={() => onPageChange('tournaments')}>Турниры</button>
+            <button className="btn-ghost" onClick={() => onPageChange('news')}>Новости</button>
+          </div>
 
-            {/* Stats */}
-            <div className={`grid grid-cols-2 sm:grid-cols-4 gap-px mt-14 transition-all duration-600 delay-200 ${visible ? 'opacity-100' : 'opacity-0'}`} style={{ border: '1px solid var(--border-color)' }}>
-              {platformStats.map(stat => (
-                <div key={stat.label} className="px-5 py-4" style={{ background: 'var(--bg-card)', borderRight: '1px solid var(--border-color)' }}>
-                  <div className="font-display font-black mb-0.5" style={{ fontSize: '18px', color: 'var(--text-primary)' }}>{stat.value}</div>
-                  <div style={{ fontFamily: 'Orbitron', fontSize: '8px', letterSpacing: '1.5px', color: 'var(--text-dim)', textTransform: 'uppercase' }}>{stat.label}</div>
-                </div>
-              ))}
-            </div>
+          {/* Stats */}
+          <div className={`grid grid-cols-2 sm:grid-cols-4 gap-px mt-16 w-full max-w-2xl transition-all duration-600 delay-200 ${visible ? 'opacity-100' : 'opacity-0'}`} style={{ border: '1px solid var(--border-color)' }}>
+            {platformStats.map((stat, i) => (
+              <div key={stat.label} className="px-5 py-5" style={{ background: 'rgba(28,28,28,0.85)', borderRight: i < 3 ? '1px solid var(--border-color)' : 'none', backdropFilter: 'blur(8px)' }}>
+                <div className="font-display font-black mb-1" style={{ fontSize: '22px', color: 'var(--text-primary)' }}>{stat.value}</div>
+                <div style={{ fontFamily: 'Inter', fontSize: '11px', fontWeight: 500, letterSpacing: '1px', color: 'var(--text-dim)', textTransform: 'uppercase' }}>{stat.label}</div>
+              </div>
+            ))}
           </div>
         </div>
 
         {/* Top games — right side */}
-        <div className="hidden xl:block absolute right-16 top-1/2 -translate-y-1/2 w-64">
-          <div className="g-card">
+        <div className="hidden xl:block absolute right-10 top-1/2 -translate-y-1/2 w-64">
+          <div className="g-card" style={{ backdropFilter: 'blur(10px)', background: 'rgba(28,28,28,0.9)' }}>
             <div className="px-4 py-3 flex items-center justify-between" style={{ borderBottom: '1px solid var(--border-color)' }}>
               <span style={{ fontFamily: 'Orbitron', fontSize: '9px', letterSpacing: '2px', color: 'var(--text-dim)' }}>ТОП ИГР</span>
               <div className="flex items-center gap-1.5">
@@ -108,8 +118,8 @@ export default function HomePage({ onPageChange }: HomePageProps) {
               <div key={game.rank} className="px-4 py-3 flex items-center gap-3" style={{ borderBottom: i < 4 ? '1px solid var(--border-color)' : 'none' }}>
                 <span style={{ fontFamily: 'Orbitron', fontSize: '10px', color: 'var(--text-dim)', width: '16px' }}>{game.rank}</span>
                 <div className="flex-1 min-w-0">
-                  <div className="font-display font-bold truncate" style={{ fontSize: '10px', color: 'var(--text-primary)' }}>{game.name}</div>
-                  <div style={{ fontFamily: 'Orbitron', fontSize: '8px', color: 'var(--text-dim)', marginTop: '1px' }}>{game.genre}</div>
+                  <div className="font-display font-bold truncate" style={{ fontSize: '11px', color: 'var(--text-primary)' }}>{game.name}</div>
+                  <div style={{ fontSize: '11px', color: 'var(--text-dim)', marginTop: '1px' }}>{game.genre}</div>
                 </div>
                 <div className="text-right">
                   <div style={{ fontFamily: 'Orbitron', fontSize: '10px', color: 'var(--text-secondary)' }}>{game.players}</div>
@@ -141,12 +151,12 @@ export default function HomePage({ onPageChange }: HomePageProps) {
               onMouseLeave={e => (e.currentTarget.style.borderColor = 'var(--border-color)')}
             >
               <span className="tag-red mb-3 inline-block">{item.category}</span>
-              <h3 className="font-body font-semibold leading-snug mb-4" style={{ color: 'var(--text-primary)', fontSize: '14px', lineHeight: '1.5' }}>{item.title}</h3>
+              <h3 className="font-semibold leading-snug mb-4" style={{ color: 'var(--text-primary)', fontSize: '16px', lineHeight: '1.5' }}>{item.title}</h3>
               <div className="flex items-center justify-between">
-                <span style={{ fontFamily: 'Orbitron', fontSize: '8px', color: 'var(--text-dim)' }}>{item.time}</span>
+                <span style={{ fontSize: '12px', color: 'var(--text-dim)' }}>{item.time}</span>
                 <div className="flex items-center gap-1">
-                  <Icon name="Eye" size={10} style={{ color: 'var(--text-dim)' }} />
-                  <span style={{ fontFamily: 'Orbitron', fontSize: '8px', color: 'var(--text-dim)' }}>{item.views}</span>
+                  <Icon name="Eye" size={11} style={{ color: 'var(--text-dim)' }} />
+                  <span style={{ fontSize: '12px', color: 'var(--text-dim)' }}>{item.views}</span>
                 </div>
               </div>
             </div>
