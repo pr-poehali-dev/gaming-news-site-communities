@@ -50,11 +50,55 @@ export default function HomePage({ onPageChange }: HomePageProps) {
 
       {/* Hero */}
       <section className="relative" style={{ minHeight: '92vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-        {/* Background */}
-        <div className="absolute inset-0">
-          <img src={HERO_IMAGE} alt="" className="w-full h-full object-cover" style={{ opacity: 0.18 }} />
-          <div className="absolute inset-0" style={{ background: 'linear-gradient(180deg, rgba(20,20,20,0.6) 0%, rgba(20,20,20,0.85) 60%, #141414 100%)' }} />
-          <div className="absolute inset-0" style={{ background: 'radial-gradient(ellipse at center, transparent 30%, rgba(20,20,20,0.7) 100%)' }} />
+        {/* Abstract background */}
+        <div className="absolute inset-0 overflow-hidden" style={{ background: 'var(--bg)' }}>
+          {/* Grid lines */}
+          <svg className="absolute inset-0 w-full h-full" xmlns="http://www.w3.org/2000/svg" style={{ opacity: 0.07 }}>
+            <defs>
+              <pattern id="grid" width="60" height="60" patternUnits="userSpaceOnUse">
+                <path d="M 60 0 L 0 0 0 60" fill="none" stroke="#e02020" strokeWidth="0.5"/>
+              </pattern>
+            </defs>
+            <rect width="100%" height="100%" fill="url(#grid)" />
+          </svg>
+
+          {/* Glowing red orb center */}
+          <div className="absolute" style={{
+            top: '50%', left: '50%', transform: 'translate(-50%, -50%)',
+            width: '600px', height: '600px',
+            background: 'radial-gradient(ellipse, rgba(224,32,32,0.12) 0%, rgba(224,32,32,0.04) 40%, transparent 70%)',
+            animation: 'pulse 4s ease-in-out infinite',
+          }} />
+
+          {/* Dim orb top-right */}
+          <div className="absolute" style={{
+            top: '-10%', right: '10%',
+            width: '400px', height: '400px',
+            background: 'radial-gradient(ellipse, rgba(224,32,32,0.07) 0%, transparent 70%)',
+            animation: 'pulse 6s ease-in-out infinite reverse',
+          }} />
+
+          {/* Corner accent lines */}
+          <svg className="absolute top-0 left-0" width="200" height="200" style={{ opacity: 0.2 }}>
+            <line x1="0" y1="80" x2="80" y2="0" stroke="#e02020" strokeWidth="1"/>
+            <line x1="0" y1="120" x2="120" y2="0" stroke="#444" strokeWidth="0.5"/>
+            <line x1="0" y1="40" x2="40" y2="0" stroke="#e02020" strokeWidth="0.5"/>
+          </svg>
+          <svg className="absolute bottom-0 right-0" width="200" height="200" style={{ opacity: 0.2 }}>
+            <line x1="200" y1="120" x2="120" y2="200" stroke="#e02020" strokeWidth="1"/>
+            <line x1="200" y1="80" x2="80" y2="200" stroke="#444" strokeWidth="0.5"/>
+            <line x1="200" y1="160" x2="160" y2="200" stroke="#e02020" strokeWidth="0.5"/>
+          </svg>
+
+          {/* Scan line */}
+          <div style={{
+            position: 'absolute', left: 0, right: 0, height: '1px',
+            background: 'linear-gradient(90deg, transparent, rgba(224,32,32,0.4), transparent)',
+            animation: 'scanline 8s linear infinite',
+          }} />
+
+          {/* Bottom fade */}
+          <div className="absolute bottom-0 left-0 right-0" style={{ height: '200px', background: 'linear-gradient(to bottom, transparent, var(--bg))' }} />
         </div>
 
         {/* Center content */}

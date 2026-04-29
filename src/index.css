@@ -294,6 +294,27 @@
   animation: fadeUp 0.45s 0.25s ease-out both;
 }
 
+/* Hero abstract bg animations */
+@keyframes scanline {
+  0% {
+    top: -2px;
+  }
+  100% {
+    top: 100%;
+  }
+}
+@keyframes pulse {
+  0%,
+  100% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.12);
+    opacity: 0.7;
+  }
+}
+
 /* XP */
 .xp-bar {
   background: var(--red);
