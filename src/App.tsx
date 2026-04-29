@@ -21,6 +21,8 @@ const WEB_NODES = [
   { x: 52, y: 70 }, { x: 68, y: 55 }, { x: 82, y: 65 }, { x: 92, y: 50 }, { x: 75, y: 78 },
   { x: 58, y: 85 }, { x: 42, y: 80 }, { x: 25, y: 88 }, { x: 10, y: 78 }, { x: 3,  y: 92 },
   { x: 88, y: 88 }, { x: 45, y: 30 }, { x: 15, y: 25 }, { x: 65, y: 72 }, { x: 33, y: 62 },
+  { x: 50, y: 50 }, { x: 72, y: 15 }, { x: 18, y: 55 }, { x: 90, y: 70 }, { x: 40, y: 95 },
+  { x: 6,  y: 35 }, { x: 80, y: 95 }, { x: 55, y: 40 }, { x: 28, y: 15 }, { x: 96, y: 15 },
 ];
 
 const WEB_EDGES: [number, number][] = [
@@ -30,6 +32,10 @@ const WEB_EDGES: [number, number][] = [
   [2,26],[26,9],[26,14],[27,0],[27,10],[28,19],[28,16],[29,13],
   [29,21],[4,8],[1,27],[6,18],[24,23],[5,17],[3,26],[11,29],
   [20,28],[7,19],[9,29],[16,28],[25,17],[25,19],[0,12],[2,8],
+  [30,8],[30,9],[30,14],[30,15],[30,16],[31,5],[31,4],[31,38],
+  [32,11],[32,12],[32,35],[33,17],[33,18],[33,25],[34,21],[34,22],
+  [35,0],[35,27],[36,20],[36,25],[37,8],[37,26],[38,1],[38,39],
+  [39,5],[39,6],[30,37],[32,29],[36,28],[33,19],[34,23],
 ];
 
 function AppBg() {
@@ -38,96 +44,139 @@ function AppBg() {
       {/* Base */}
       <div className="absolute inset-0" style={{ background: 'var(--bg)' }} />
 
-      {/* Web / network of lines */}
-      <svg className="absolute inset-0 w-full h-full" xmlns="http://www.w3.org/2000/svg" style={{ opacity: 1 }}>
+      {/* Abstract web SVG */}
+      <svg className="absolute inset-0 w-full h-full" xmlns="http://www.w3.org/2000/svg">
         <defs>
-          <radialGradient id="nodeGlow" cx="50%" cy="50%" r="50%">
-            <stop offset="0%" stopColor="#e02020" stopOpacity="0.9" />
+          <radialGradient id="ngRed" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stopColor="#e02020" stopOpacity="1" />
             <stop offset="100%" stopColor="#e02020" stopOpacity="0" />
           </radialGradient>
-          <filter id="blur2">
-            <feGaussianBlur stdDeviation="2" />
-          </filter>
+          <radialGradient id="ngDim" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stopColor="#444" stopOpacity="1" />
+            <stop offset="100%" stopColor="#444" stopOpacity="0" />
+          </radialGradient>
+          <filter id="glow"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+          <filter id="softBlur"><feGaussianBlur stdDeviation="1.5"/></filter>
+
+          {/* Animated dash pattern */}
+          <style>{`
+            @keyframes dashMove { from { stroke-dashoffset: 200; } to { stroke-dashoffset: 0; } }
+            @keyframes fadeInOut { 0%,100%{opacity:0.15} 50%{opacity:0.6} }
+            @keyframes rotateSlow { from{transform-origin:50% 50%;transform:rotate(0deg)} to{transform-origin:50% 50%;transform:rotate(360deg)} }
+            .web-edge-anim { animation: dashMove 8s linear infinite; }
+            .pulse-ring { animation: fadeInOut 4s ease-in-out infinite; }
+            .pulse-ring-2 { animation: fadeInOut 4s ease-in-out 2s infinite; }
+          `}</style>
         </defs>
 
-        {/* Edges — thin dim lines */}
+        {/* Structural diagonal lines — bolder */}
+        <line x1="0%" y1="0%" x2="100%" y2="100%" stroke="#252525" strokeWidth="0.8" strokeOpacity="0.9" />
+        <line x1="100%" y1="0%" x2="0%" y2="100%" stroke="#252525" strokeWidth="0.8" strokeOpacity="0.9" />
+        <line x1="50%" y1="0%" x2="0%" y2="100%" stroke="#e02020" strokeWidth="0.6" strokeOpacity="0.15" />
+        <line x1="50%" y1="0%" x2="100%" y2="100%" stroke="#e02020" strokeWidth="0.6" strokeOpacity="0.15" />
+        <line x1="0%" y1="50%" x2="100%" y2="0%" stroke="#2a2a2a" strokeWidth="0.5" strokeOpacity="0.7" />
+        <line x1="0%" y1="50%" x2="100%" y2="100%" stroke="#2a2a2a" strokeWidth="0.5" strokeOpacity="0.7" />
+        <line x1="25%" y1="0%" x2="75%" y2="100%" stroke="#222" strokeWidth="0.4" strokeOpacity="0.6" />
+        <line x1="75%" y1="0%" x2="25%" y2="100%" stroke="#222" strokeWidth="0.4" strokeOpacity="0.6" />
+
+        {/* Concentric circles — center abstract decoration */}
+        <circle cx="50%" cy="48%" r="180" fill="none" stroke="#e02020" strokeWidth="0.5" strokeOpacity="0.12" className="pulse-ring" />
+        <circle cx="50%" cy="48%" r="280" fill="none" stroke="#e02020" strokeWidth="0.4" strokeOpacity="0.08" className="pulse-ring-2" />
+        <circle cx="50%" cy="48%" r="380" fill="none" stroke="#e02020" strokeWidth="0.3" strokeOpacity="0.05" className="pulse-ring" />
+        <circle cx="50%" cy="48%" r="90" fill="none" stroke="#333" strokeWidth="0.8" strokeOpacity="0.5" />
+        <circle cx="50%" cy="48%" r="480" fill="none" stroke="#252525" strokeWidth="0.5" strokeOpacity="0.5" />
+        <circle cx="50%" cy="48%" r="600" fill="none" stroke="#252525" strokeWidth="0.4" strokeOpacity="0.4" />
+
+        {/* Corner arc decorations */}
+        <path d="M 0 0 Q 150 0 150 150" fill="none" stroke="#e02020" strokeWidth="0.7" strokeOpacity="0.2" />
+        <path d="M 0 0 Q 250 0 250 250" fill="none" stroke="#333" strokeWidth="0.5" strokeOpacity="0.4" />
+        <path d="M 100% 0 Q calc(100% - 150px) 0 calc(100% - 150px) 150px" fill="none" stroke="#e02020" strokeWidth="0.7" strokeOpacity="0.2" />
+        <path d="M 0 100% Q 0 calc(100% - 150px) 150px calc(100% - 150px)" fill="none" stroke="#e02020" strokeWidth="0.7" strokeOpacity="0.15" />
+
+        {/* Animated web edges */}
         {WEB_EDGES.map(([a, b], i) => {
           const na = WEB_NODES[a], nb = WEB_NODES[b];
-          const isRed = i % 7 === 0;
+          const isRed = i % 6 === 0;
+          const isAnim = i % 11 === 0;
           return (
             <line key={i}
               x1={`${na.x}%`} y1={`${na.y}%`}
               x2={`${nb.x}%`} y2={`${nb.y}%`}
-              stroke={isRed ? '#e02020' : '#2a2a2a'}
-              strokeWidth={isRed ? '0.7' : '0.5'}
-              strokeOpacity={isRed ? 0.35 : 0.7}
+              stroke={isRed ? '#e02020' : '#303030'}
+              strokeWidth={isRed ? '0.9' : '0.6'}
+              strokeOpacity={isRed ? 0.5 : 0.8}
+              strokeDasharray={isAnim ? '6 10' : undefined}
+              className={isAnim ? 'web-edge-anim' : undefined}
             />
           );
         })}
 
         {/* Nodes */}
         {WEB_NODES.map((n, i) => {
-          const isAccent = i % 5 === 0;
+          const isBig = i % 5 === 0;
+          const isMed = i % 3 === 0 && !isBig;
           return (
             <g key={i}>
-              {isAccent && (
-                <circle cx={`${n.x}%`} cy={`${n.y}%`} r="6" fill="url(#nodeGlow)" filter="url(#blur2)" opacity="0.5" />
+              {isBig && <>
+                <circle cx={`${n.x}%`} cy={`${n.y}%`} r="14" fill="url(#ngRed)" filter="url(#softBlur)" opacity="0.45" />
+                <circle cx={`${n.x}%`} cy={`${n.y}%`} r="3" fill="#e02020" opacity="0.9" filter="url(#glow)" />
+              </>}
+              {isMed && !isBig && <>
+                <circle cx={`${n.x}%`} cy={`${n.y}%`} r="8" fill="url(#ngDim)" filter="url(#softBlur)" opacity="0.35" />
+                <circle cx={`${n.x}%`} cy={`${n.y}%`} r="1.8" fill="#444" opacity="0.9" />
+              </>}
+              {!isBig && !isMed && (
+                <circle cx={`${n.x}%`} cy={`${n.y}%`} r="1.2" fill="#303030" opacity="0.8" />
               )}
-              <circle cx={`${n.x}%`} cy={`${n.y}%`} r={isAccent ? '2' : '1.2'}
-                fill={isAccent ? '#e02020' : '#2e2e2e'}
-                opacity={isAccent ? 0.7 : 0.9}
-              />
             </g>
           );
         })}
 
-        {/* Thin diagonal structural lines */}
-        <line x1="0%" y1="0%" x2="100%" y2="100%" stroke="#1e1e1e" strokeWidth="0.4" strokeOpacity="0.6" />
-        <line x1="100%" y1="0%" x2="0%" y2="100%" stroke="#1e1e1e" strokeWidth="0.4" strokeOpacity="0.6" />
-        <line x1="50%" y1="0%" x2="0%" y2="100%" stroke="#e02020" strokeWidth="0.3" strokeOpacity="0.08" />
-        <line x1="50%" y1="0%" x2="100%" y2="100%" stroke="#e02020" strokeWidth="0.3" strokeOpacity="0.08" />
+        {/* Horizontal accent lines */}
+        <line x1="0%" y1="30%" x2="100%" y2="30%" stroke="#e02020" strokeWidth="0.3" strokeOpacity="0.07" />
+        <line x1="0%" y1="70%" x2="100%" y2="70%" stroke="#e02020" strokeWidth="0.3" strokeOpacity="0.07" />
+        <line x1="0%" y1="50%" x2="100%" y2="50%" stroke="#e02020" strokeWidth="0.4" strokeOpacity="0.1" />
+        <line x1="20%" y1="0%" x2="20%" y2="100%" stroke="#252525" strokeWidth="0.4" strokeOpacity="0.6" />
+        <line x1="80%" y1="0%" x2="80%" y2="100%" stroke="#252525" strokeWidth="0.4" strokeOpacity="0.6" />
       </svg>
 
-      {/* Subtle grid overlay */}
-      <svg className="absolute inset-0 w-full h-full" xmlns="http://www.w3.org/2000/svg" style={{ opacity: 0.03 }}>
+      {/* Grid overlay — more visible */}
+      <svg className="absolute inset-0 w-full h-full" xmlns="http://www.w3.org/2000/svg" style={{ opacity: 0.055 }}>
         <defs>
-          <pattern id="appgrid" width="56" height="56" patternUnits="userSpaceOnUse">
-            <path d="M 56 0 L 0 0 0 56" fill="none" stroke="#e02020" strokeWidth="0.6"/>
+          <pattern id="appgrid" width="64" height="64" patternUnits="userSpaceOnUse">
+            <path d="M 64 0 L 0 0 0 64" fill="none" stroke="#e02020" strokeWidth="0.5"/>
           </pattern>
         </defs>
         <rect width="100%" height="100%" fill="url(#appgrid)" />
       </svg>
 
-      {/* Top-left glow */}
+      {/* Glows */}
       <div className="absolute" style={{
-        top: '-120px', left: '-120px',
-        width: '600px', height: '600px',
-        background: 'radial-gradient(ellipse, rgba(224,32,32,0.09) 0%, transparent 65%)',
+        top: '-60px', left: '-60px', width: '700px', height: '700px',
+        background: 'radial-gradient(ellipse, rgba(224,32,32,0.13) 0%, transparent 60%)',
       }} />
-      {/* Bottom-right glow */}
       <div className="absolute" style={{
-        bottom: '-100px', right: '-100px',
-        width: '500px', height: '500px',
+        bottom: '-60px', right: '-60px', width: '600px', height: '600px',
+        background: 'radial-gradient(ellipse, rgba(224,32,32,0.1) 0%, transparent 60%)',
+      }} />
+      <div className="absolute" style={{
+        top: '35%', left: '40%', width: '600px', height: '500px',
         background: 'radial-gradient(ellipse, rgba(224,32,32,0.07) 0%, transparent 65%)',
-      }} />
-      {/* Center glow */}
-      <div className="absolute" style={{
-        top: '40%', left: '45%',
-        width: '400px', height: '300px',
-        background: 'radial-gradient(ellipse, rgba(224,32,32,0.04) 0%, transparent 70%)',
         transform: 'translate(-50%,-50%)',
       }} />
-
-      {/* Horizontal accent line */}
       <div className="absolute" style={{
-        top: '50%', left: 0, right: 0, height: '1px',
-        background: 'linear-gradient(90deg, transparent 0%, rgba(224,32,32,0.12) 30%, rgba(224,32,32,0.12) 70%, transparent 100%)',
+        top: '10%', right: '10%', width: '300px', height: '300px',
+        background: 'radial-gradient(ellipse, rgba(224,32,32,0.06) 0%, transparent 70%)',
+      }} />
+      <div className="absolute" style={{
+        bottom: '20%', left: '5%', width: '280px', height: '280px',
+        background: 'radial-gradient(ellipse, rgba(224,32,32,0.05) 0%, transparent 70%)',
       }} />
 
       {/* Scan line */}
       <div className="absolute left-0 right-0" style={{
         height: '2px',
-        background: 'linear-gradient(90deg, transparent, rgba(224,32,32,0.25), transparent)',
+        background: 'linear-gradient(90deg, transparent, rgba(224,32,32,0.35), transparent)',
         animation: 'scanline 12s linear infinite',
       }} />
     </div>

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Icon from '@/components/ui/icon';
 
 const HERO_IMAGE = 'https://cdn.poehali.dev/projects/f1898adf-e8ce-426f-9d76-5d40fb291118/files/4ed6b39b-7a11-41d3-91f0-9907ad31a349.jpg';
@@ -7,22 +7,57 @@ const COMMUNITY_IMAGE = 'https://cdn.poehali.dev/projects/f1898adf-e8ce-426f-9d7
 const topGames = [
   { rank: 1, name: 'DOTA 2', genre: 'MOBA', players: '8.2M', change: '+5%', up: true },
   { rank: 2, name: 'CS2', genre: 'Шутер', players: '6.4M', change: '+3%', up: true },
-  { rank: 3, name: 'VALORANT', genre: 'Шутер', players: '4.1M', change: '−2%', up: false },
-  { rank: 4, name: 'LEAGUE OF LEGENDS', genre: 'MOBA', players: '3.8M', change: '+1%', up: true },
-  { rank: 5, name: 'PUBG', genre: 'Battle Royale', players: '2.1M', change: '+8%', up: true },
+  { rank: 3, name: 'BRAWL STARS', genre: 'Мобильные', players: '5.1M', change: '+12%', up: true },
+  { rank: 4, name: 'VALORANT', genre: 'Шутер', players: '4.1M', change: '−2%', up: false },
+  { rank: 5, name: 'LEAGUE OF LEGENDS', genre: 'MOBA', players: '3.8M', change: '+1%', up: true },
+  { rank: 6, name: 'PUBG MOBILE', genre: 'Мобильные', players: '3.2M', change: '+8%', up: true },
+  { rank: 7, name: 'GENSHIN IMPACT', genre: 'RPG', players: '2.8M', change: '+4%', up: true },
 ];
 
 const latestNews = [
   { id: 1, title: 'The International 2025 по Dota 2 — призовой фонд превысил $40 000 000', category: 'ТУРНИРЫ', time: '2 ч. назад', views: '84.2K' },
   { id: 2, title: 'CS2 патч: переработан de_dust2, новая система рейтинга Premier', category: 'ОБНОВЛЕНИЯ', time: '5 ч. назад', views: '31.7K' },
-  { id: 3, title: 'NAVI и Team Spirit вышли в финал PGL Major Copenhagen 2025', category: 'КИБЕРСПОРТ', time: '1 д. назад', views: '54.5K' },
+  { id: 3, title: 'Brawl Stars: новый сезон с бравлерами Moe и Juju — обзор изменений', category: 'МОБИЛЬНЫЕ', time: '8 ч. назад', views: '29.1K' },
 ];
 
-const platformStats = [
-  { label: 'Онлайн', value: '47 892', icon: 'Wifi' },
-  { label: 'Сообществ', value: '12 400', icon: 'Users' },
-  { label: 'Тем форума', value: '890K', icon: 'MessageSquare' },
-  { label: 'Турниров', value: '2 300', icon: 'Trophy' },
+// Animated counter hook
+function useCounter(target: number, duration = 1800) {
+  const [value, setValue] = useState(0);
+  const started = useRef(false);
+  useEffect(() => {
+    if (started.current) return;
+    started.current = true;
+    const start = performance.now();
+    const step = (now: number) => {
+      const progress = Math.min((now - start) / duration, 1);
+      const ease = 1 - Math.pow(1 - progress, 3);
+      setValue(Math.floor(ease * target));
+      if (progress < 1) requestAnimationFrame(step);
+      else setValue(target);
+    };
+    requestAnimationFrame(step);
+  }, [target, duration]);
+  return value;
+}
+
+function StatCounter({ target, label }: { target: number; label: string }) {
+  const val = useCounter(target);
+  const formatted = val >= 1000000
+    ? `${(val / 1000000).toFixed(1)}M`
+    : val >= 1000 ? `${Math.floor(val / 1000)} ${String(val % 1000).padStart(3, '0')}` : String(val);
+  return (
+    <div className="flex flex-col items-center">
+      <div className="font-display font-black mb-1" style={{ fontSize: '22px', color: 'var(--text-primary)' }}>{formatted}</div>
+      <div style={{ fontFamily: 'Inter', fontSize: '11px', fontWeight: 500, letterSpacing: '1px', color: 'var(--text-dim)', textTransform: 'uppercase' }}>{label}</div>
+    </div>
+  );
+}
+
+const STAT_TARGETS = [
+  { label: 'Онлайн', target: 47892 },
+  { label: 'Сообществ', target: 12400 },
+  { label: 'Тем форума', target: 890000 },
+  { label: 'Турниров', target: 2300 },
 ];
 
 interface HomePageProps {
@@ -63,32 +98,18 @@ export default function HomePage({ onPageChange }: HomePageProps) {
 
         {/* Center content */}
         <div className="relative z-10 px-6 w-full flex flex-col items-center text-center">
-          {/* Label */}
-          <div className={`flex items-center gap-3 mb-6 transition-all duration-500 ${visible ? 'opacity-100' : 'opacity-0'}`}>
-            <div className="dot-red"></div>
-            <span style={{ fontFamily: 'Orbitron', fontSize: '10px', letterSpacing: '4px', color: 'var(--text-dim)', textTransform: 'uppercase' }}>Система онлайн</span>
-            <div className="dot-red"></div>
-          </div>
-
           {/* Title */}
           <h1
-            className={`font-display font-black leading-none mb-6 transition-all duration-600 ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}
+            className={`font-display font-black leading-none mb-4 transition-all duration-600 ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}
             style={{ fontSize: 'clamp(48px, 9vw, 110px)', color: 'var(--text-primary)', letterSpacing: '-2px', lineHeight: 0.9 }}
           >
             NEXUS
           </h1>
           <p
-            className={`font-display font-bold mb-3 transition-all duration-600 ${visible ? 'opacity-100' : 'opacity-0'}`}
+            className={`font-display font-bold mb-10 transition-all duration-600 ${visible ? 'opacity-100' : 'opacity-0'}`}
             style={{ fontSize: 'clamp(14px, 2.5vw, 22px)', color: 'var(--red)', letterSpacing: '6px', textTransform: 'uppercase' }}
           >
             Игровая платформа
-          </p>
-
-          <p
-            className={`mb-10 transition-all duration-600 delay-100 ${visible ? 'opacity-100' : 'opacity-0'}`}
-            style={{ color: 'var(--text-secondary)', fontSize: '18px', lineHeight: '1.7', maxWidth: '520px' }}
-          >
-            Новости, турниры, сообщества и форум для геймеров России — всё в одном месте.
           </p>
 
           <div className={`flex gap-4 transition-all duration-600 delay-150 ${visible ? 'opacity-100' : 'opacity-0'}`}>
@@ -97,12 +118,13 @@ export default function HomePage({ onPageChange }: HomePageProps) {
             <button className="btn-ghost" onClick={() => onPageChange('news')}>Новости</button>
           </div>
 
-          {/* Stats */}
-          <div className={`grid grid-cols-2 sm:grid-cols-4 gap-px mt-16 w-full max-w-2xl transition-all duration-600 delay-200 ${visible ? 'opacity-100' : 'opacity-0'}`} style={{ border: '1px solid var(--border-color)' }}>
-            {platformStats.map((stat, i) => (
-              <div key={stat.label} className="px-5 py-5" style={{ background: 'rgba(28,28,28,0.85)', borderRight: i < 3 ? '1px solid var(--border-color)' : 'none', backdropFilter: 'blur(8px)' }}>
-                <div className="font-display font-black mb-1" style={{ fontSize: '22px', color: 'var(--text-primary)' }}>{stat.value}</div>
-                <div style={{ fontFamily: 'Inter', fontSize: '11px', fontWeight: 500, letterSpacing: '1px', color: 'var(--text-dim)', textTransform: 'uppercase' }}>{stat.label}</div>
+          {/* Live stats */}
+          <div className={`grid grid-cols-2 sm:grid-cols-4 gap-px mt-16 w-full max-w-2xl transition-all duration-600 delay-200 ${visible ? 'opacity-100' : 'opacity-0'}`}
+            style={{ border: '1px solid var(--border-color)' }}>
+            {STAT_TARGETS.map((stat, i) => (
+              <div key={stat.label} className="px-5 py-5 flex flex-col items-center"
+                style={{ background: 'rgba(28,28,28,0.85)', borderRight: i < 3 ? '1px solid var(--border-color)' : 'none', backdropFilter: 'blur(8px)' }}>
+                {visible && <StatCounter target={stat.target} label={stat.label} />}
               </div>
             ))}
           </div>
