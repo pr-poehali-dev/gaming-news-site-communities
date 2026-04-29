@@ -20,9 +20,16 @@ const communities = [
   { id: 4, name: 'LoL РУССКОЕ СООБЩЕСТВО', game: 'League of Legends', members: '132K', online: 4280, category: 'MOBA' },
   { id: 5, name: 'PUBG CLAN RU', game: 'PUBG', members: '61K', online: 1870, category: 'Battle Royale' },
   { id: 6, name: 'MINECRAFT BUILDERS RU', game: 'Minecraft', members: '88K', online: 2950, category: 'Сандбокс' },
+  { id: 7, name: 'BRAWL STARS RU', game: 'Brawl Stars', members: '143K', online: 9120, category: 'Мобильные' },
+  { id: 8, name: 'CLASH ROYALE CIS', game: 'Clash Royale', members: '76K', online: 3840, category: 'Мобильные' },
+  { id: 9, name: 'PUBG MOBILE RUSSIA', game: 'PUBG Mobile', members: '98K', online: 5230, category: 'Мобильные' },
+  { id: 10, name: 'MOBILE LEGENDS RU', game: 'Mobile Legends', members: '54K', online: 2170, category: 'Мобильные' },
+  { id: 11, name: 'CLASH OF CLANS RU', game: 'Clash of Clans', members: '67K', online: 2890, category: 'Мобильные' },
+  { id: 12, name: 'GENSHIN IMPACT RU', game: 'Genshin Impact', members: '189K', online: 7640, category: 'RPG' },
+  { id: 13, name: 'ELDEN RING RU', game: 'Elden Ring', members: '72K', online: 2340, category: 'RPG' },
 ];
 
-const categories = ['Все', 'MOBA', 'Шутер', 'Battle Royale', 'RPG', 'Сандбокс', 'Общее'];
+const categories = ['Все', 'MOBA', 'Шутер', 'Battle Royale', 'Мобильные', 'RPG', 'Сандбокс', 'Общее'];
 
 const SEED_MESSAGES: Record<number, ChatMessage[]> = {
   1: [
