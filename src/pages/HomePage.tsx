@@ -121,31 +121,6 @@ export default function HomePage({ onPageChange }: HomePageProps) {
 
         </div>
 
-        {/* Top games — right side */}
-        <div className="hidden xl:block absolute right-10 top-1/2 -translate-y-1/2 w-64">
-          <div className="g-card" style={{ backdropFilter: 'blur(10px)', background: 'rgba(28,28,28,0.9)' }}>
-            <div className="px-4 py-3 flex items-center justify-between" style={{ borderBottom: '1px solid var(--border-color)' }}>
-              <span style={{ fontFamily: 'Orbitron', fontSize: '9px', letterSpacing: '2px', color: 'var(--text-dim)' }}>ТОП ИГР</span>
-              <div className="flex items-center gap-1.5">
-                <div className="dot-red"></div>
-                <span style={{ fontFamily: 'Orbitron', fontSize: '8px', color: 'var(--text-dim)' }}>LIVE</span>
-              </div>
-            </div>
-            {topGames.map((game, i) => (
-              <div key={game.rank} className="px-4 py-3 flex items-center gap-3" style={{ borderBottom: i < 4 ? '1px solid var(--border-color)' : 'none' }}>
-                <span style={{ fontFamily: 'Orbitron', fontSize: '10px', color: 'var(--text-dim)', width: '16px' }}>{game.rank}</span>
-                <div className="flex-1 min-w-0">
-                  <div className="font-display font-bold truncate" style={{ fontSize: '11px', color: 'var(--text-primary)' }}>{game.name}</div>
-                  <div style={{ fontSize: '11px', color: 'var(--text-dim)', marginTop: '1px' }}>{game.genre}</div>
-                </div>
-                <div className="text-right">
-                  <div style={{ fontFamily: 'Orbitron', fontSize: '10px', color: 'var(--text-secondary)' }}>{game.players}</div>
-                  <div style={{ fontFamily: 'Orbitron', fontSize: '8px', color: game.up ? '#3a9a3a' : 'var(--red)', marginTop: '1px' }}>{game.change}</div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
       </section>
 
       {/* Latest News */}

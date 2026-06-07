@@ -21,20 +21,20 @@ export default function Navbar({ currentPage, onPageChange }: NavbarProps) {
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50" style={{ background: 'rgba(20,20,20,0.97)', backdropFilter: 'blur(12px)', borderBottom: '1px solid var(--border-color)' }}>
-      <div className="flex items-center justify-between px-6 md:px-10 h-14">
+      <div className="flex items-center justify-between px-5 md:px-8 h-12">
 
         {/* Logo */}
-        <button onClick={() => onPageChange('home')} className="flex items-center gap-3">
-          <div className="w-6 h-6 flex items-center justify-center" style={{ background: 'var(--red)' }}>
-            <Icon name="Gamepad2" size={13} style={{ color: '#fff' }} />
+        <button onClick={() => onPageChange('home')} className="flex items-center gap-2">
+          <div className="w-5 h-5 flex items-center justify-center" style={{ background: 'var(--red)' }}>
+            <Icon name="Gamepad2" size={11} style={{ color: '#fff' }} />
           </div>
-          <span className="font-display text-sm font-black" style={{ color: 'var(--text-primary)', letterSpacing: '4px' }}>
+          <span className="font-display text-xs font-black" style={{ color: 'var(--text-primary)', letterSpacing: '4px' }}>
             NEXUS
           </span>
         </button>
 
         {/* Nav links — desktop */}
-        <div className="hidden md:flex items-center gap-7">
+        <div className="hidden md:flex items-center gap-5">
           {navItems.map(item => (
             <button
               key={item.id}
@@ -47,33 +47,28 @@ export default function Navbar({ currentPage, onPageChange }: NavbarProps) {
         </div>
 
         {/* Right */}
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2">
           <div className="relative hidden sm:block">
-            <Icon name="Search" size={13} className="absolute left-3 top-1/2 -translate-y-1/2" style={{ color: 'var(--text-dim)' }} />
+            <Icon name="Search" size={12} className="absolute left-2.5 top-1/2 -translate-y-1/2" style={{ color: 'var(--text-dim)' }} />
             <input
               type="text"
               value={search}
               onChange={e => setSearch(e.target.value)}
               placeholder="Поиск..."
-              className="g-input pl-8 pr-3 py-1.5 text-sm w-36 focus:w-48 transition-all duration-300"
+              className="g-input pl-7 pr-3 py-1 text-xs w-32 focus:w-44 transition-all duration-300"
             />
-          </div>
-
-          <div className="hidden md:flex items-center gap-2">
-            <div className="dot-red"></div>
-            <span style={{ color: 'var(--text-dim)', fontSize: '10px', fontFamily: 'Orbitron', letterSpacing: '1px' }}>47 892</span>
           </div>
 
           <button
             onClick={() => onPageChange('profile')}
-            className="w-8 h-8 flex items-center justify-center transition-opacity hover:opacity-70"
+            className="w-7 h-7 flex items-center justify-center transition-opacity hover:opacity-70"
             style={{ border: '1px solid var(--border-color)', background: 'var(--bg-card)' }}
           >
-            <Icon name="User" size={14} style={{ color: 'var(--text-secondary)' }} />
+            <Icon name="User" size={13} style={{ color: 'var(--text-secondary)' }} />
           </button>
 
           <button className="md:hidden" onClick={() => setMobileOpen(!mobileOpen)} style={{ color: 'var(--text-secondary)' }}>
-            <Icon name={mobileOpen ? 'X' : 'Menu'} size={20} />
+            <Icon name={mobileOpen ? 'X' : 'Menu'} size={18} />
           </button>
         </div>
       </div>
