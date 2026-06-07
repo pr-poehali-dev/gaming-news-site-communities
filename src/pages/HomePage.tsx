@@ -118,16 +118,7 @@ export default function HomePage({ onPageChange }: HomePageProps) {
             <button className="btn-ghost" onClick={() => onPageChange('news')}>Новости</button>
           </div>
 
-          {/* Live stats */}
-          <div className={`grid grid-cols-2 sm:grid-cols-4 gap-px mt-16 w-full max-w-2xl transition-all duration-600 delay-200 ${visible ? 'opacity-100' : 'opacity-0'}`}
-            style={{ border: '1px solid var(--border-color)' }}>
-            {STAT_TARGETS.map((stat, i) => (
-              <div key={stat.label} className="px-5 py-5 flex flex-col items-center"
-                style={{ background: 'rgba(28,28,28,0.85)', borderRight: i < 3 ? '1px solid var(--border-color)' : 'none', backdropFilter: 'blur(8px)' }}>
-                {visible && <StatCounter target={stat.target} label={stat.label} />}
-              </div>
-            ))}
-          </div>
+
         </div>
 
         {/* Top games — right side */}
