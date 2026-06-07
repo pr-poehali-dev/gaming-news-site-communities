@@ -84,41 +84,39 @@ export default function HomePage({ onPageChange }: HomePageProps) {
       </div>
 
       {/* Hero */}
-      <section className="relative" style={{ minHeight: '92vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+      <section className="relative" style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
         {/* Hero-specific center glow on top of global bg */}
         <div className="absolute inset-0 pointer-events-none">
           <div className="absolute" style={{
             top: '50%', left: '50%', transform: 'translate(-50%, -50%)',
-            width: '700px', height: '700px',
-            background: 'radial-gradient(ellipse, rgba(224,32,32,0.16) 0%, rgba(224,32,32,0.06) 40%, transparent 70%)',
+            width: '900px', height: '900px',
+            background: 'radial-gradient(ellipse, rgba(224,32,32,0.18) 0%, rgba(224,32,32,0.07) 40%, transparent 70%)',
             animation: 'pulse 4s ease-in-out infinite',
           }} />
-          <div className="absolute bottom-0 left-0 right-0" style={{ height: '180px', background: 'linear-gradient(to bottom, transparent, rgba(20,20,20,0.7))' }} />
+          <div className="absolute bottom-0 left-0 right-0" style={{ height: '220px', background: 'linear-gradient(to bottom, transparent, rgba(20,20,20,0.8))' }} />
         </div>
 
         {/* Center content */}
         <div className="relative z-10 px-6 w-full flex flex-col items-center text-center">
           {/* Title */}
           <h1
-            className={`font-display font-black leading-none mb-4 transition-all duration-600 ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}
-            style={{ fontSize: 'clamp(48px, 9vw, 110px)', color: 'var(--text-primary)', letterSpacing: '-2px', lineHeight: 0.9 }}
+            className={`font-display font-black leading-none mb-6 transition-all duration-600 ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}
+            style={{ fontSize: 'clamp(72px, 14vw, 180px)', color: 'var(--text-primary)', letterSpacing: '-4px', lineHeight: 0.88 }}
           >
             NEXUS
           </h1>
           <p
-            className={`font-display font-bold mb-10 transition-all duration-600 ${visible ? 'opacity-100' : 'opacity-0'}`}
-            style={{ fontSize: 'clamp(14px, 2.5vw, 22px)', color: 'var(--red)', letterSpacing: '6px', textTransform: 'uppercase' }}
+            className={`font-display font-bold mb-12 transition-all duration-600 ${visible ? 'opacity-100' : 'opacity-0'}`}
+            style={{ fontSize: 'clamp(12px, 2vw, 20px)', color: 'var(--red)', letterSpacing: '8px', textTransform: 'uppercase' }}
           >
             Игровая платформа
           </p>
 
           <div className={`flex gap-4 transition-all duration-600 delay-150 ${visible ? 'opacity-100' : 'opacity-0'}`}>
-            <button className="btn-red" onClick={() => onPageChange('communities')}>Вступить</button>
-            <button className="btn-ghost" onClick={() => onPageChange('tournaments')}>Турниры</button>
-            <button className="btn-ghost" onClick={() => onPageChange('news')}>Новости</button>
+            <button className="btn-red" style={{ padding: '12px 28px', fontSize: '13px' }} onClick={() => onPageChange('communities')}>Вступить</button>
+            <button className="btn-ghost" style={{ padding: '12px 28px', fontSize: '13px' }} onClick={() => onPageChange('tournaments')}>Турниры</button>
+            <button className="btn-ghost" style={{ padding: '12px 28px', fontSize: '13px' }} onClick={() => onPageChange('news')}>Новости</button>
           </div>
-
-
         </div>
 
       </section>
